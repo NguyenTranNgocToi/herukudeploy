@@ -1,0 +1,210 @@
+<div class="row" style="text-align: center;">
+        <h1><b>THUÊ PHÒNG <%=maPhong%></b></h1>
+    </div>
+    <div style="background: black;height: 2px;width: 100%;margin-bottom: 20px;">
+    
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3><b> THÔNG TIN KHÁCH HÀNG</b></h3>
+            <form action="/nhanvien/thuephongtructiep/<%=maPhong%>" method="post" enctype="multipart/form-data">
+                <div class="col-sm-6 form-group">
+                    <label for="usr">Họ và tên(<span id="errorTen">*</span>):</label>
+                    <input type="text" class="form-control" id="ten" name="ten" onblur="checkTen()" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Số CMND(<span id="errorScmnd">*</span>):</label>
+                    <input type="text" class="form-control" id="scmnd" name="scmnd" onblur="checkScmnd()" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Số điện thoại(<span id="errorSdt">*</span>):</label>
+                    <input type="text" class="form-control" id="sdt" name="sdt" onblur="checkSdt()" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Địa Chỉ(<span id="errorDiaChi">*</span>):</label>
+                    <input type="text" class="form-control" id="diachi" name="diachi" onblur="checkDiaChi()" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Giới Tính:</label>
+                    <select class="form-control" id="sel1" name="gioitinh" required>
+                        <option>Nam</option>
+                        <option>Nu</option>
+                    </select>
+                </div>
+
+              
+               
+                <div class="form-group">
+                    <input type="text" class="form-control" id="ngaydatpost" name="ngaydat" required  style="display: none;">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="ngaytrapost" name="ngaytra" required  style="display: none; ">
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="luuAn" class="btn btn-default" required  style="display: none;">Lưu</button>
+                </div>
+            </form>
+            <!-- required style="display: none; -->
+            
+      
+           
+        </div>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <label class="col-sm-12" style="margin-left: -11px;" for="ngaybatdau">Ngày giờ bắt đầu thuê:</label>
+                <input style="height: 30px; border: 1px solid #ccc;border-radius: 4px;"  class="col-sm-12" type="datetime-local" id="ngaybatdau" onchange="" name="ngaybatdau" required readonly >
+            </div>
+            
+            <div class="col-sm-6">
+                    <label class="col-sm-12" style="margin-left: -11px;"  for="ngaytra">Ngày giờ trả phòng:</label>
+                    <input style="height: 30px; border: 1px solid #ccc;border-radius: 4px;" class="col-sm-12" type="datetime-local" id="ngaytra" onchange="KTTrung()" name="ngaytra" required>
+            </div>
+            <div class="col-sm-6" style="margin-top: 15px;">
+                <label class="col-sm-12"  id="mess"></label>
+            </div>
+        </div>
+       
+    </div>
+   
+    
+    <div class="row" style="margin-top: 2%">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-success" id="thuephong" onclick="luu()" style="width: 40%;margin-left: 10%;font-size: medium;">Thuê Phòng</button> </td>
+            <a href="/nhanvien/cnthuephong" type="button" class="btn btn-danger" style="width: 40%;font-size: medium;">Hủy</a> </td>
+        </div>
+    
+    </div>
+    
+    <script>
+    
+        setTimes()
+        
+        function luu() {
+           
+           
+      
+            var ngaybatdau =  document.getElementById("ngaybatdau").value;
+            var ngaytra = document.getElementById("ngaytra").value;
+            var check = true;
+            if(ngaybatdau > ngaytra)
+                check = false
+            if (!checkTen())
+                check = false
+            if (!checkDiaChi())
+                check = false
+            if (!checkScmnd())
+                check = false
+            if (!checkSdt())
+                check = false
+            if(check){
+                alert("thành công")
+                document.getElementById("ngaydatpost").value = ngaybatdau
+                document.getElementById("ngaytrapost").value = ngaytra
+                document.getElementById("luuAn").click();
+            }
+               
+        }
+        function checkTen() {
+            var ten = document.getElementById('ten').value;
+            var errorTen = document.getElementById('errorTen');
+            // alert(errorTen);
+            // alert(ten);
+            var regexten = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+            if (ten == '' || ten == null) {
+                errorTen.innerHTML = "tên không được để trống";
+                return false
+            } else if (!regexten.test(ten)) {
+                errorTen.innerHTML = "tên không hợp lệ";
+                return false
+            } else {
+                errorTen.innerHTML = "*";
+                return true
+            }
+        }
+        function checkScmnd() {
+            var scmnd = document.getElementById('scmnd').value;
+            var errorscmnd = document.getElementById('errorScmnd');
+    
+            var regexScmnd = /^([0-9]{9}||[0-9]{11})$/;
+            if (scmnd == '' || scmnd == null) {
+                errorscmnd.innerHTML = "scmnd không được để trống";
+                return false
+            } else if (!regexScmnd.test(scmnd)) {
+                errorscmnd.innerHTML = "scmnd không hợp lệ";
+                return false
+            } else {
+                errorscmnd.innerHTML = "*";
+                return true
+            }
+        }
+        function checkSdt() {
+            var sdt = document.getElementById('sdt').value;
+            var errorsdt = document.getElementById('errorSdt');
+    
+            var regexSdt = /^([0-9]{10}||[0-9]{11})$/;
+            if (sdt == '' || sdt == null) {
+                errorsdt.innerHTML = "sdt không được để trống";
+                return false
+            } else if (!regexSdt.test(sdt)) {
+                errorsdt.innerHTML = "sdt không hợp lệ";
+                return false
+            } else {
+                errorsdt.innerHTML = "*";
+                return true
+            }
+    
+        }
+        function checkDiaChi() {
+            var diachi = document.getElementById('diachi').value;
+            var errordiachi = document.getElementById('errorDiaChi');
+    
+            var regexdiachi = /^([0-9]{10}||[0-9]{11})$/;
+            if (diachi == '' || diachi == null) {
+                errordiachi.innerHTML = "địa chỉ không được để trống";
+                return false
+            } else {
+                errordiachi.innerHTML = "*";
+                return true
+            }
+    
+        }
+ 
+        function setTimes() {
+                const d = new Date();
+                var elem = document.getElementById("ngaybatdau"); 
+                // console.log(d.toISOString());
+              
+                // console.log(day)
+              
+                // elem.value = day;
+
+            d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+            elem.value = d.toISOString().slice(0,16);
+        }
+        function KTTrung(){
+            var elem = document.getElementById("ngaytra");
+            var btnThuePhong = document.getElementById("thuephong");
+            btnThuePhong.disabled = false
+            // alert(elem.value) 
+            var mess = document.getElementById("mess")
+            mess.innerHTML =""
+            var settings = {
+                url: "/nhanvien/cnthuephong/chothue/kttrunglich/<%=maPhong%>/"+elem.value,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                   if(data=="Rỗng"){
+                        // alert("data rỗng")
+                   }   
+                   else{
+                        // alert("data 0 rỗng")
+                            var day =new Date(data.ngayBatDauThue)  
+                            let thang = day.getMonth()+1
+                            btnThuePhong.disabled = true
+                            mess.innerHTML ="TRÙNG NGÀY: Khách Hàng: "+ data.tenKH+" sẽ bắt đầu thuê phòng vào lúc " + day.getDate() + "/"+thang +"/" +day.getFullYear()+" "+ day.getHours()+":"+day.getMinutes(); 
+                   } 
+                }
+            };
+            $.ajax(settings);
+        }
+    </script>

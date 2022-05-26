@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-sm-12"> 
+            <h1 style="text-align: center"><b>DANH SÁCH HÓA ĐƠN</b></h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12"> 
+        <table class="table table-bordered" id="myTable">
+                <thead >
+                  <tr>
+                    <th>Mã Hóa Đơn</th>
+                    <th>Ngày Lập Hóa Đơn</th>
+                    <th>Tên Khách Hàng</th>
+                    <th>Số CMND của Khách Hàng</th>
+                    <th>Tên Nhân Viên</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody >
+                    <%for(let i=0;i< list1.length;i++){%>
+                        <tr style="background-color: lightgrey">
+                            <td> <%=list1[i].maHoaDon%></td>
+                            <td> 
+                                <%=list1[i].ngayLapHoaDon.getFullYear().toString()%>/<%=(list1[i].ngayLapHoaDon.getMonth()+1).toString()%>/<%=list1[i].ngayLapHoaDon.getDate().toString()%>(<%=list1[i].ngayLapHoaDon.getHours().toString()%>:<%=list1[i].ngayLapHoaDon.getMinutes().toString()%>)
+                            </td>
+                            <td> <%=list1[i].tenKH%></td>
+                            <td> <%=list1[i].soCMND%></td>
+                            <td> <%=list1[i].tenNV%></td>
+                            <td  style="text-align: center;">
+                                <a href="/nhanvien/cnthuephong/chitiethoadon/<%=list1[i].maHoaDon%>" class="btn btn-success" >Chi Tiết</a>
+                                
+                            </td>
+                        
+                                
+                        
+                        </tr>
+                    <%}%>
+                </tbody>
+            </table>
+           
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ Phiếu mỗi trang",
+                "search": "Nhập vào từ khóa muốn tìm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Tiếp",
+                    "previous": "Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": false, "targets": '_all' }
+            ]
+
+        });
+    });
+</script>
+  

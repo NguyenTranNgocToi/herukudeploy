@@ -1,0 +1,75 @@
+<h1 style="text-align: center;font-weight: bold;">CHI TIẾT ĐẶT PHÒNG</h1>
+    <div class="row">
+        <div class="col-sm-12">
+               
+                <table class="table table-bordered" id="myTable">
+                        <thead >
+                          <tr>
+                            <th>Mã phiếu thuê</th>
+                            <th>Mã phòng</th>
+                            <th>Ngày đặt phòng</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Tên nhân viên</th>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại của khách hàng</th>
+                           
+                          </tr>
+                        </thead>
+                        <tbody >
+                                <%for(let i=0;i< list.length;i++){%>
+                                        <tr>
+                                    
+                                          <td> <%=list[i].maPhieu%></td>
+                                          <td> <%=list[i].maPhong%></td>
+                                          <td><%=list[i].ngayBatDauThue.getFullYear().toString()%>/<%=(list[i].ngayBatDauThue.getMonth()+1).toString()%>/<%=list[i].ngayBatDauThue.getDate().toString()%>(<%=list[i].ngayBatDauThue.getHours().toString()%>:<%=list[i].ngayBatDauThue.getMinutes().toString()%>)</td>
+                                          <td><%=list[i].ngayTra.getFullYear().toString()%>/<%=(list[i].ngayTra.getMonth()+1).toString()%>/<%=list[i].ngayTra.getDate().toString()%>(<%=list[i].ngayTra.getHours().toString()%>:<%=list[i].ngayTra.getMinutes().toString()%>)</td>
+                                          <td> <%=list[i].tenNV%></td>
+                                          <td> <%=list[i].tenKH%></td>
+                                          <td> <%=list[i].soDT%></td>
+                                        </tr>
+                                        <%}%>
+                        </tbody>
+                      </table>
+                      
+                     
+        </div>
+</div>
+<div class="row">
+  <div class="col-sm-12" >
+         
+          <a href="/nhanvien/cndsDatPhong">
+                  <button type="button" class="btn btn-primary" style="margin-top: 10px;width: 100px;">Quay Lại</button>
+          </a>
+  </div>
+</div>
+<SCript>
+   $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ Phiếu mỗi trang",
+                "search": "Tìm Kiếm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Tiếp",
+                    "previous": "Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": true, "className": 'reorder', "targets": 4 },
+                { "orderable": true, "className": 'reorder', "targets": 5 },
+                { "orderable": true, "className": 'reorder', "targets": 6 },
+                { "orderable": false, "targets": '_all' }
+            ]
+
+        });
+    });
+</SCript>

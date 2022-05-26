@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    </div>
+    <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4"
+        style="margin-top: 5%;font-family: 'Times New Roman', Times, serif;">
+        <h2 style="text-align: center;font-weight: bold;">ĐĂNG KÍ TÀI KHOẢN</h2>   
+        <div>
+            <hr>
+        </div>
+       
+        <form id="from" action="/dangky"onsubmit="return validateForm()" enctype="multipart/form-data" method="post">
+            <div class="form-group" style="margin-top: 10px;">
+                <input onblur="KiemTraTen()" type="text" class="form-control" placeholder="Họ tên" name="ten" id="ten" style="height: 50px;border-radius: 20px;">
+                <span id="checkten" style="color: red;font-size: 15px;"></span>
+            </div>
+            <div class="form-group">
+                <input onblur="KiemTraCMND()" type="text" class="form-control" placeholder="Số chứng minh thư" name="soCMND" id="soCMND" style="height: 50px;border-radius: 20px;">
+                <span id="checkCMND" style="color: red;font-size: 15px;"></span>
+            </div>
+            <div class="form-group">
+                <input onblur="KiemTraSDT()" type="text" class="form-control" placeholder="Số điện thoại" name="soDT" id="soDT" style="height: 50px;border-radius: 20px;">
+                <span id="checksoDT" style="color: red;font-size: 15px;"></span>
+            </div>
+            <div class="form-group">
+                <input onblur="KiemTradc()" type="text" class="form-control" placeholder="Địa chỉ liên hệ" name="diaChi" id="diaChi" style="height: 50px;border-radius: 20px;">
+                <span id="checkDC" style="color: red;font-size: 15px;"></span>
+            </div>
+            <div class="form-group">
+                <input onblur="KiemTraEmail()" type="text" class="form-control" placeholder="Địa chỉ gmail" name="gmail" id="gmail" style="height: 50px;border-radius: 20px;">
+                <span id="checkmail" style="color: red;font-size: 15px;"></span>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="gioiTinh" required style="height: 50px;border-radius: 20px;">
+
+                    <option selected value="Nam">
+                        Nam
+                    </option>
+                    <option value="Nữ">
+                        Nữ
+                    </option>
+
+                </select>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">XÁC
+                NHẬN</button>
+
+            <div>
+                <br>
+            </div>
+        </form>
+        
+        <button onclick="BacktoHome()" class="btn btn-primary"
+            style="width: 100%;margin-bottom: 5px;height: 40px;border-radius: 20px;">TRỞ VỀ</button>
+            <%if(kt != ''){%>
+                <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                    <strong>Cảnh báo!</strong> <%=kt%>
+                </div>
+            <%}%>
+    </div>
+</div>
+
+<script>
+    function BacktoHome() {
+        location.replace('/')
+    }
+
+    function KiemTraCMND() {
+            var regSCMND = /(([0-9]{8})\b)$/;
+            var CMND = document.getElementById("soCMND").value;
+            if (regSCMND.test(CMND)) {
+                document.getElementById("checkCMND").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkCMND").innerHTML = "Nhập sai số chứng minh";
+                return false;
+            }
+    }
+    function KiemTraTen() {
+            var ten = document.getElementById("ten").value;
+            if (ten == '') {
+                document.getElementById("checkten").innerHTML = "Tên không được để trống";
+                return false;
+            } else {
+                document.getElementById("checkten").innerHTML = "";
+                return true;
+            }
+        }
+    function KiemTraEmail() {
+            var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var Email = document.getElementById("gmail").value;
+            if (regEmail.test(Email)) {
+                document.getElementById("checkmail").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkmail").innerHTML = "Nhập sai định dạng Gmail";
+                return false;
+            }
+        }
+        function KiemTradc() {
+            var dc = document.getElementById('diaChi').value;
+            if (dc != '') {
+                document.getElementById('checkDC').innerHTML = "";
+                return true;
+            } else {
+                document.getElementById('checkDC').innerHTML = "Nhập sai địa chỉ";
+                return false;
+            }
+
+        }
+        function KiemTraSDT() {
+            var regSDT = /((09|03|07|08|05)+([0-9]{8})\b)$/;
+            var SDT = document.getElementById("soDT").value;
+            if (regSDT.test(SDT)) {
+                document.getElementById("checksoDT").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checksoDT").innerHTML = "Nhập sai định dạng số điện thoại";
+                return false;
+            }
+        }
+        function validateForm() {
+           if(KiemTraCMND() && KiemTraEmail() && KiemTraSDT() && KiemTraTen() && KiemTradc()){
+               return true;
+           }else{
+               return false
+           }
+        }
+        
+        
+</script>

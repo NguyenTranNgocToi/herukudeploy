@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="form-group col-xs-5 col-sm-5 col-md-5 col-lg-5" style="margin-left: 30%; border-style: ridge;">
+        <h2 style="text-align: center;font-weight: bold;">Sửa Thông Tin Loại Phòng</h2>   
+            <div>
+                <hr>
+            </div>
+        <form action="/quanly/cnloaiphong/suatt" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="maLPH" value="<%=lph.maLPH%>">
+            </div>
+            <div class="form-group">
+                <label for="Tenldv">Tên loại phòng:</label>
+                <input value="<%=lph.tenLoaiPhong%>" type="text" class="form-control" placeholder="Tên loại phòng"
+                    name="tenLoaiPhong">
+            </div>
+            <div class="form-group">
+                <label>Số người:</label>
+                <input value="<%=lph.soNguoi%>" type="number" class="form-control" placeholder="Số người"
+                    name="soNguoi">
+            </div>
+            <div class="form-group">
+                <label>Giá phòng:</label>
+                <input value="<%=lph.donGia%>" type="number" class="form-control" placeholder="Đơn giá" name="donGia">
+            </div>
+            <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">Lưu</button>
+            <div>
+                <br>
+            </div>
+        </form>
+        <button onclick="BacktoHome()" class="btn btn-primary"
+            style="width: 100%;margin-bottom: 5px;height: 40px;border-radius: 20px;">Quay lại</button>
+    </div>
+    <script>
+        function BacktoHome() {
+            location.replace('/quanly/cnloaiphong')
+        }           
+    </script>
+</div>

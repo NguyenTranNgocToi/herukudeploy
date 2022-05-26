@@ -1,0 +1,182 @@
+
+    <h1 style="text-align: center;font-weight: bold;"> DANH SÁCH PHÒNG</h1>
+   
+    <!-- <div class="row">
+            <div class="col-sm-6">
+                    <form action="/action_page.php">
+                        <label for="birthday">Ngày:</label>
+                        <input type="date" id="birthday" name="birthday">
+                        <label for="appt">Giờ:</label>
+                        <input type="time" id="appt" name="appt">
+                        <input type="submit" value="Chọn">
+                    </form>
+            </div>        
+            <div class="col-sm-6">        
+                <div class="search-container">
+                            <form action="/action_page.php">
+                              <input type="text" placeholder="Phòng" name="search">
+                              <button type="submit">Tìm</button>
+                            </form>
+                </div>
+            </div>
+           
+    </div> -->
+             
+    <a href="/nhanvien/cnthuephong/xemkhachhangdangthue"   class="btn btn-success">Danh Sách Khách Hàng Đang Thuê</a>
+    <div class="row" style="margin-top: 20px;">
+            <!-- <div class="col-sm-2" id="canhphai" style="border: 2px solid #b1154a;border-radius:15px; height: 510px">
+                <h3>Trạng khái</h3>
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Phòng trống</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Phòng đang thuê</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Phòng đã đặt</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Tất cả phòng</label>
+                    </div>
+                </form>
+                <h3>Loại phòng</h3>
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Phòng đơn</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Phòng đôi</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Phòng gia đình</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Tất cả loại phòng</label>
+                    </div>
+                </form>
+                <h3>Dọn dẹp</h3>
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Đã dọn dẹp</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Chưa dọn dẹp</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Sửa chữa</label>
+                    </div>
+                    <div class="radio">
+                            <label><input type="radio" name="optradio" checked>Tất cả</label>
+                    </div>  
+                </form>
+                <button type="button" class="btn" style="padding-right: 20%; padding-left: 20%; margin-left: 45%;margin-bottom: 5%">Lọc</button>    
+            </div> -->
+
+            <div class="col-sm-12" >
+               
+                    <table class="table table-bordered" id="myTable">
+                            <thead >
+                              <tr>
+                                <th>Mã Phòng</th>
+                                <th>Trạng thái</th>
+                                <th>Loại Phòng</th>
+                                <th>Trình trạng</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody >
+                                <!-- <tr>
+                                        <td>A04</td>
+                                        <td>Phòng trống</td>
+                                        <td>Phòng đơn</td>
+                                        <td>Đã dọn dẹp</td>
+                                        <td><button type="button" class="btn">Chọn</button> </td>
+                                </tr> -->
+                                <%for(let i=0;i< list.length;i++){%>
+                                    <tr style="background-color: lightgoldenrodyellow;">
+                                    
+                                        <td>
+                                            <%=list[i].maPhong%>
+                                        </td>
+                                        <td> Đã Đặt</td>
+                                        <td>
+                                            <%=list[i].tenLoaiPhong%>
+                                        </td>
+                                        <td>
+                                            <%=list[i].trangThai%>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="/nhanvien/cnthuephong/xemnhanphong/<%=list[i].maPhong%>" class="btn btn-success" style="width:36%;">Xem</a>
+                                        </td>
+                                    </tr>
+                                <%}%>        
+                                <%for(let i=0;i< list1.length;i++){%>
+                                   
+                                       
+                                        <%if (list1[i].trinhTrang == "Đang Thuê") {%>   
+                                            <tr style="background-color: lightgrey">
+                                                <td> <%=list1[i].maPhong%></td>
+                                                <td> <%=list1[i].trinhTrang%></td>
+                                                <td> <%=list1[i].tenLoaiPhong%></td>
+                                                <td> <%=list1[i].trangThai%></td>
+                                                <td  style="text-align: center;">
+                                                    <a href="/nhanvien/cnthuephong/cndichvu/<%=list1[i].maPhong%>/0" class="btn btn-success" style="width:36%">Xem</a>
+                                                    
+                                                </td>
+                                               
+                                                    
+                                               
+                                            </tr>
+                                        <%}%>
+
+                                        <%if(list1[i].trinhTrang== "còn trống"){ %> 
+                                            <tr style="background-color:  aqua;">
+                                                <td> <%=list1[i].maPhong%></td>
+                                                <td> <%=list1[i].trinhTrang%></td>
+                                                <td> <%=list1[i].tenLoaiPhong%></td>
+                                                <td> <%=list1[i].trangThai%></td>
+                                                <td  style="text-align: center;">
+                                                    <a href="/nhanvien/cnthuephong/chothue/<%=list1[i].maPhong%>" class="btn btn-success" style="width:36%;">Xem</a>
+                                                </td>
+                                            </tr>
+                                        <%}%>
+                                    
+                                <%}%>
+                              
+                              
+                            </tbody>
+                          </table>
+                         
+            </div>
+    </div>
+    
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ Phiếu mỗi trang",
+                "search": "Tìm Kiếm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Tiếp",
+                    "previous": "Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": false, "targets": '_all' }
+            ]
+
+        });
+    });
+</script>
+  

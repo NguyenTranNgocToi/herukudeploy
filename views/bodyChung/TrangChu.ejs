@@ -1,0 +1,60 @@
+<div class="container" style="width: 100%;">
+    <div class="row" style="font-family: 'Times New Roman', Times, serif;">
+        <div class="col-sm-9">
+            <div style="border-right: 4px double #2196F3;padding-top: 60px;height: 100%;height: 750px;">
+                <div class="row">
+                    <p style="font-size: 40px;font-weight: bold;text-align: center;">CHÀO MỪNG BẠN ĐẾN VỚI <br> KHÁCH SẠN HOÀN MỸ</p>
+                </div>
+                <div class="row">
+                    <p style="font-size:17px;text-align: center;padding-top: 100px;">Khách sạn Hoàng Mỹ là một khách sạn hàng đầu Việt Nam.<br> Với phương châm "phục vụ khách hàng bẳng
+                        cả trái tim" <br>Khách Sạn Hoàn Mỹ luôn lấy khách hàng làm trung tâm<br> cho mọi hoạt động để tạo ra
+                        nhiều giá trị cộng đồng
+                    </p>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-sm-3" style="padding-top: 60px;">
+            
+            <form action="/dangnhap" method="post" enctype="multipart/form-data" style="margin-top: 100px;">
+                <div class="form-group" >
+                    <h3 style="text-align: center;font-weight: bold;">ĐĂNG NHẬP</h3>    
+                </div>
+                <div class="form-group" >
+                  <label for="tendn">Tên Đăng Nhập:</label>
+                  <input type="tendn" class="form-control" name="tendn">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Mật khẩu:</label>
+                  <input type="password" class="form-control" name="matkhau">
+                  <label for="erroe"><%= mess%></label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">ĐĂNG NHẬP</button>
+              </form><br>
+              <p style="font-size: 16px;"><a href="/dangky">Bạn chưa có tài khoản?</a></p>
+              <a style="font-size: 16px; color: red;" href="/quenmk">Quên mật khẩu?</a>
+        </div>
+    </div>
+    <!-- <div class="row" style="border-top: 2px solid black;">
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-sm-4" style="padding-top: 25px;">
+            <p style="font-size: 18px;"><b>Thông Tin Liên Hệ</b></p>
+            <p><b>Điện thoại:</b> 034 275 9036</p>
+            <p><b>Khiếu nại:</b> 1900 2221</p>
+            <p><b>Email:</b> khshoangmy@gmail.com</p>
+            <p><b>Facebook:</b> https://www.facebook.com/HOTEL.HOANGMY</p>
+        </div>
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-4" style="padding-top: 25px;">
+            <p style="font-size: 18px;"><b>Chi Nhánh</b></p>
+            <p><b>Hà Nội:</b></p>
+            <p>22-76 Giải phóng, Đống Đa, Hà Nội.</p>
+            <p><b>Thành phố Hồ Chí Minh:</b></p>
+            <p>1068 Nguyễn Văn Linh, Quận 7, TP.Hồ Chí Minh.</p>
+        </div>
+    </div> -->
+</div>

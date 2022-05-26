@@ -1,0 +1,230 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">CẬP NHẬT KHÁCH HÀNG</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Thêm Khách
+                Hàng</button>
+        </div>
+    </div><br>
+    <div class="row">
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Họ tên</th>
+                        <th>Số CMND</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Giới tính</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <%if(dskh.length> 0){%>
+                        <%for(let i=0;i< dskh.length ; i++) {%>
+                            <tr>
+                                <td>
+                                    <%=dskh[i].id%>
+                                </td>
+                                <td>
+                                    <%=dskh[i].tenKH%>
+                                </td>
+                                <td>
+                                    <%=dskh[i].soCMND%>
+                                </td>
+                                <td>
+                                    <%=dskh[i].soDT%>
+                                </td>
+                                <td>
+                                    <%=dskh[i].diaChi%>
+                                </td>
+                                <td>
+                                    <%=dskh[i].gioiTinh%>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                        onClick="confirmDeleteKH('/quanly/cnkhachhang/xoakh/<%=dskh[i].id%>')">Xóa</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning" href="/quanly/cnkhachhang/suakh/<%=dskh[i].id%>"
+                                        class="btn btn-warning">Sửa</a>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <%}else{%>
+                                    <tr>
+                                        <td>Không tìm thấy</td>
+                                    </tr>
+                                    <%}%>
+                </tbody>
+
+
+            </table>
+            <%if(kt != ''){%>
+                <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                    <strong>Cảnh báo!</strong> <%=kt%>
+                </div>
+            <%}%>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align: center;font-weight: bold;">THÊM KHÁCH HÀNG</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/quanly/cnkhachhang/themkh"onsubmit="return validateForm()" method="post"
+                        enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Tên khách hàng:</label>
+                            <input onblur="KiemTraTen()" type="text" class="form-control" name="ten" id="ten">
+                            <span id="checkten" style="color: red;font-size: 15px;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Số CMND:</label>
+                            <input onblur="KiemTraCMND()" type="text" class="form-control" name="soCMND" id="soCMND">
+                            <span id="checkCMND" style="color: red;font-size: 15px;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại:</label>
+                            <input onblur="KiemTraSDT()" type="text" class="form-control" name="soDT" id="soDT">
+                            <span id="checksoDT" style="color: red;font-size: 15px;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ:</label>
+                            <input onblur="KiemTradc()" type="text" class="form-control" name="diaChi" id="diaChi">
+                            <span id="checkDC" style="color: red;font-size: 15px;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Gmail:</label>
+                            <input onblur="KiemTraEmail()" type="text" class="form-control" name="gmail" id="gmail">
+                            <span id="checkmail" style="color: red;font-size: 15px;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới tính:</label>
+                            <select class="form-control" name="gioiTinh" required>
+
+                                <option selected value="Nam">
+                                    Nam
+                                </option>
+                                <option value="Nữ">
+                                    Nữ
+                                </option>
+
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-default">Đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+     $(document).ready( function () {
+        $('#myTable').DataTable({ 
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ khách hàng mỗi trang",
+                "search": "Tìm Kiếm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first":"Đầu tiên",
+                    "last":"Cuối cùng",
+                    "next":"Tiếp",
+                    "previous":"Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": false, "targets": '_all' }
+            ]
+            
+        });
+    });
+    function confirmDeleteKH(url) {
+        if (confirm("Bạn có chắc muốn xóa khách hàng này ko?")) {
+            location.replace(url)
+        } else {
+            false;
+        }
+    }
+    function KiemTraCMND() {
+        var regSCMND = /(([0-9]{8})\b)$/;
+        var CMND = document.getElementById("soCMND").value;
+        if (regSCMND.test(CMND)) {
+            document.getElementById("checkCMND").innerHTML = "";
+            return true;
+        } else {
+            document.getElementById("checkCMND").innerHTML = "Nhập sai số chứng minh";
+            return false;
+        }
+    }
+    function KiemTraTen() {
+        var ten = document.getElementById("ten").value;
+        if (ten == '') {
+            document.getElementById("checkten").innerHTML = "Tên không được để trống";
+            return false;
+        } else {
+            document.getElementById("checkten").innerHTML = "";
+            return true;
+        }
+    }
+    function KiemTraEmail() {
+        var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var Email = document.getElementById("gmail").value;
+        if (regEmail.test(Email)) {
+            document.getElementById("checkmail").innerHTML = "";
+            return true;
+        } else {
+            document.getElementById("checkmail").innerHTML = "Nhập sai định dạng Gmail";
+            return false;
+        }
+    }
+    function KiemTradc() {
+        var dc = document.getElementById('diaChi').value;
+        if (dc != '') {
+            document.getElementById('checkDC').innerHTML = "";
+            return true;
+        } else {
+            document.getElementById('checkDC').innerHTML = "Nhập sai địa chỉ";
+            return false;
+        }
+
+    }
+    function KiemTraSDT() {
+        var regSDT = /((09|03|07|08|05)+([0-9]{8})\b)$/;
+        var SDT = document.getElementById("soDT").value;
+        if (regSDT.test(SDT)) {
+            document.getElementById("checksoDT").innerHTML = "";
+            return true;
+        } else {
+            document.getElementById("checksoDT").innerHTML = "Nhập sai định dạng số điện thoại";
+            return false;
+        }
+    }
+    function validateForm() {
+        if (KiemTraCMND() && KiemTraEmail() && KiemTraSDT() && KiemTraTen() && KiemTradc()) {
+            return true;
+        } else {
+            return false
+        }
+    }
+</script>
+</div>

@@ -1,0 +1,112 @@
+
+
+<div id="PhieuDat" style="padding: 5%;margin-top: -70px;">
+
+
+    <div class="row">
+        <div class="col-sm-12"> 
+                <h1 style="text-align: center;color: blue;"><b>PHIẾU ĐẶT PHÒNG</b></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12"> 
+            <h4><b>Tên Khách Hàng:</b>  <%=list[0].tenKH%></h4>
+        </div>
+        <div class="col-sm-6"> 
+            <h4><b>Số CMND:</b>  <%=list[0].soCMND%></h4>
+            </div>
+        <div class="col-sm-6"> 
+            <h4><b>Mã Phiếu:</b> <%=list[0].maPhieu%> </h4>
+        </div>
+            <div class="col-sm-6"> 
+            <h4><b>Ngày lập phiếu:</b> 
+                
+               
+                <%=list[0].ngayDat.getDate().toString()%>/<%=(list[0].ngayDat.getMonth()+1).toString()%>/<%=list[0].ngayDat.getFullYear().toString()%>
+                (<%=list[0].ngayDat.getHours().toString()%>:<%=list[0].ngayDat.getMinutes().toString()%>) </h4>
+        </div>
+        <div class="col-sm-6"> 
+            <h4><b>Tên Nhân viên:</b>  <%=list[0].tenNV%>  </h4>
+        </div>
+        <div class="col-sm-6"> 
+            <h4><b>Tiền Cọc:</b>  <%=list[0].tienCoc%> VNĐ </h4>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-sm-12"> 
+            <h4 style="text-align: left"><b>Các phòng đã đặt:</b></h4>
+                <table class="table table-bordered" id="myTable">
+                    <thead >
+                    <tr>
+                        <th>Mã Phòng</th>
+                        <th>Loại Phòng</th>
+                        <th>Ngày bắt đầu thuê</th>
+                        <th>Ngày trả phòng</th>
+                        <th>Giá</th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody >
+                    
+                        <%for(let i=0;i< list.length;i++){%>
+                            <tr style="background-color: lightgoldenrodyellow;">
+                            
+                                <td>
+                                    <%=list[i].maPhong%>
+                                </td>
+                                <td>
+                                    <%=list[i].tenLoaiPhong%>
+                                </td>
+                                <td>
+                                    <%=list[i].ngayBatDauThue.getFullYear().toString()%>/<%=(list[i].ngayBatDauThue.getMonth()+1).toString()%>/<%=list[i].ngayBatDauThue.getDate().toString()%>(<%=list[i].ngayBatDauThue.getHours().toString()%>:<%=list[i].ngayBatDauThue.getMinutes().toString()%>) 
+                                </td>
+                                <td>
+                                    <%=list[i].ngayTra.getFullYear().toString()%>/<%=(list[i].ngayTra.getMonth()+1).toString()%>/<%=list[i].ngayTra.getDate().toString()%>(<%=list[i].ngayTra.getHours().toString()%>:<%=list[i].ngayTra.getMinutes().toString()%>) 
+                                </td>
+                                <td>
+                                    <%=list[i].donGia%>
+                                </td>
+                            
+                            </tr>
+                        <%}%>  
+                    </tbody>
+                </table> 
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row">
+     
+
+        <h3 style="text-align: center;color: red;"><%=mess%></h3>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-success" style="margin-left: 1200px;" onclick="inHD()">In Phiếu Đặt Phòng</button>
+        <a href="/nhanvien/cndsDatPhong"  style="margin-left: 1200px;margin-top: 5px;width:149px;" class="btn btn-primary">Trở về</a>
+    </div>
+</div>
+<script>
+    function inHD() {
+        
+        const hoaDon = document.getElementById("PhieuDat");
+        // console.log(hoaDon);
+        console.log(window);
+        // html2pdf().from(hoaDon).save()
+        window.print(hoaDon)
+    }
+    if('<%=kq%>'==0){
+        setTimeout(function(){
+          
+            window.location.href="/nhanvien/cndsDatPhong/phieudatphongvuanay"
+        }, 2000);
+       
+    }
+</script>

@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">ĐỔI MẬT KHẨU</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <form action="/khachhang/doimktk"onsubmit="return validateForm()"  method="post" enctype="multipart/form-data" style="width: 50%;">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="tendn" value="<%=tendn%>">
+            </div>
+            
+            <div class="form-group">
+                <label>Mật khẩu cũ:</label>
+                <input onblur="KiemTraMKC()" type="password" class="form-control" name="mkc" id="mkc">
+                <span style="color: red;" id="idMK"></span>
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu mới:</label>
+                <input onblur="KiemTraMKM()" type="password" class="form-control" name="mkmoi1" id="mkmoi1">
+                <span style="color: red;" id="idMKM"></span>
+            </div>
+            <button type="submit" class="btn btn btn-danger">Đồng ý</button>
+        </form>
+        <%if(kt != ''){%>
+            <div class="alert alert-warning" style="margin-top: 10px;border-radius: 15px;width: 50%;">
+                <strong>Cảnh báo!</strong> <%=kt%>
+            </div>
+        <%}%>
+        <%if(tc != ''){%>
+            <div class="alert alert-success" style="margin-top: 10px;border-radius: 15px;width: 50%;">
+                <strong><%=tc%></strong> 
+            </div>
+        <%}%>
+    </div>
+
+    <script>
+        function KiemTraMKC() {
+            var regMK = /^[A-Za-z0-9]{6,}$/;
+            var MK = document.getElementById("mkc").value;
+            if (regMK.test(MK)) {
+                document.getElementById("idMK").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("idMK").innerHTML = "Mật khẩu cũ không hợp lệ";
+                return false;
+            }
+        }
+        function KiemTraMKM() {
+            var regMK = /^[A-Za-z0-9]{6,}$/;
+            var MK = document.getElementById("mkmoi1").value;
+            if (regMK.test(MK)) {
+                document.getElementById("idMKM").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("idMKM").innerHTML = "Mật khẩu mới không hợp lệ";
+                return false;
+            }
+        }
+        function validateForm() {
+            if (KiemTraMa()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+    
+</div>

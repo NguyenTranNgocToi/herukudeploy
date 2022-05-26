@@ -1,0 +1,188 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">CẬP NHẬT LOẠI PHÒNG</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-sm-6">
+            <form class="form-inline" action="/quanly/cnloaiphong/timkiem" method="get">
+                <div class="form-group">
+                    <label for="tukhoa">Từ khóa:</label>
+                    <input type="text" class="form-control" name="tukhoa">
+                </div>
+                <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+            </form>
+        </div> -->
+        <!-- <div class="col-sm-3">
+        </div> -->
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Thêm Loại
+                Phòng</button>
+        </div>
+    </div><br>
+    <div class="row">
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã loại phòng</th>
+                        <th>Tên loại</th>
+                        <th>Số người</th>
+                        <th>Giá phòng</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%if(dsloaiphong.length> 0){%>
+                        <%for(let i=0;i< dsloaiphong.length ; i++) {%>
+                            <tr>
+                                <td>
+                                    <%=dsloaiphong[i].maLPH%>
+                                </td>
+                                <td>
+                                    <%=dsloaiphong[i].tenLoaiPhong%>
+                                </td>
+                                <td>
+                                    <%=dsloaiphong[i].soNguoi%>
+                                </td>
+                                <td>
+                                    <%=dsloaiphong[i].donGia%>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                        onClick="confirmDeleteLP('/quanly/cnloaiphong/xoalph/<%=dsloaiphong[i].maLPH%>')">Xóa</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning"
+                                        href="/quanly/cnloaiphong/sualph/<%=dsloaiphong[i].maLPH%>"
+                                        class="btn btn-warning">Sửa</a>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <%}else{%>
+                                    <tr>
+                                        <td>Không tìm thấy</td>
+                                    </tr>
+                                    <%}%>
+                </tbody>
+
+            </table>
+            
+                <%if(kt != ''){%>
+                    <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                        <strong>Cảnh báo!</strong> <%=kt%>
+                    </div>
+                <%}%>
+         
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="text-align: center;font-weight: bold;">Thêm loại phòng</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/quanly/cnloaiphong/themlph"onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Tên loại phòng:</label>
+                                <input onblur="KiemTraTen()" type="text" class="form-control" id="tenLoaiPhong"
+                                    name="tenLoaiPhong">
+                                <span id="checkten" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Số người:</label>
+                                <input onblur="KiemtraNguoi()" type="number" class="form-control" id="soNguoi"
+                                    name="soNguoi">
+                                <span id="checksonguoi" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Giá phòng:</label>
+                                <input onblur="KiemtraDonGia()" type="number" class="form-control" name="donGia"
+                                    id="donGia">
+                                <span id="checkdongia" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <button type="submit" class="btn btn-default">Đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({ 
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ loại phòng mỗi trang",
+                    "search": "Tìm Kiếm:",
+                    "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                    "paginate": {
+                        "first":"Đầu tiên",
+                        "last":"Cuối cùng",
+                        "next":"Tiếp",
+                        "previous":"Trở về"
+                    },
+                    "zeroRecords": "Không tìm thấy kết quả",
+                    "info": "Hiển thị trang _PAGE_ của _PAGES_",
+                },
+                "rowReorder": true,
+                "columnDefs": [
+                    { "orderable": true, "className": 'reorder', "targets": 0 },
+                    { "orderable": true, "className": 'reorder', "targets": 1 },
+                    { "orderable": true, "className": 'reorder', "targets": 2 },
+                    { "orderable": true, "className": 'reorder', "targets": 3 },
+                    { "orderable": false, "targets": '_all' }
+                ]
+            
+            });
+        });
+        function confirmDeleteLP(url) {
+            if (confirm("Bạn có chắc muốn xóa loại phòng này không?")) {
+                location.replace(url)
+            } else {
+                false;
+            }
+        }
+        function KiemTraTen() {
+            var ten = document.getElementById("tenLoaiPhong").value;
+            if (ten != '') {
+                document.getElementById("checkten").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkten").innerHTML = "Tên không hợp lệ";
+                return false;
+            }
+        }
+        function KiemtraNguoi() {
+            var soluong = document.getElementById("soNguoi").value;
+            if (soluong > 0 && soluong < 20) {
+                document.getElementById("checksonguoi").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checksonguoi").innerHTML = "Số người không hợp lệ";
+                return false;
+            }
+        }
+        function KiemtraDonGia() {
+            var dongia = document.getElementById("donGia").value;
+            if (dongia > 100000) {
+                document.getElementById("checkdongia").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkdongia").innerHTML = "Đơn giá không hợp lệ";
+                return false;
+            }
+        }
+        function validateForm() {
+            if (KiemTraTen() && KiemtraDonGia()  && KiemtraNguoi()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</div>

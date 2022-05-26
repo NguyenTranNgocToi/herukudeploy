@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">CẬP NHẬT DỊCH VỤ</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Thêm Dịch Vụ</button>
+        </div>
+    </div><br>
+    <div class="row">
+        <table id="myTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Mã dịch vụ</th>
+                    <th>Tên loại dịch vụ</th>
+                    <th>Tên dịch vụ</th>
+                    <th>Giá tiền</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if(listdv.length> 0){%>
+                    <%for(let i=0;i< listdv.length ; i++) {%>
+                        <tr>
+                            <td>
+                                <%=listdv[i].maDichVu%>
+                            </td>
+                            <td>
+                                <%=listdv[i].tenLoaiDichVu%>
+                            </td>
+                            <td>
+                                <%=listdv[i].tenDichVu%>
+                            </td>
+                            <td>
+                                <%=listdv[i].donGia%>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" 
+                                onClick="confirmDeleteDV('/quanly/cndichvu/xoadv/<%=listdv[i].maDichVu%>')">Xóa</button>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" href="/quanly/cndichvu/suadv/<%=listdv[i].maDichVu%>"
+                                        class="btn btn-warning">Sửa</a>
+                            </td>
+                        </tr>
+                        <%}%>
+                            <%}else{%>
+                                <tr>
+                                    <td>Không tìm thấy</td>
+                                </tr>
+                            <%}%>
+            </tbody>
+
+        </table>
+        <%if(kt != ''){%>
+            <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                <strong>Cảnh báo!</strong> <%=kt%>
+            </div>
+        <%}%>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="text-align: center;font-weight: bold;">Thêm Dịch vụ</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/quanly/cndichvu/adddichvu"onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Tên dịch vụ:</label>
+                                <input onblur="KiemTraTen()" name="tenDichVu" type="text" class="form-control" id="tenDichVu">
+                                <span id="checkten" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Tên loại dịch vụ:</label>
+                                <select class="form-control" name="tenldv" required>
+                                    <%for(let i=0;i < dsldv.length;i++){%>
+                                        <option value="<%=dsldv[i].tenLoaiDichVu%>">
+                                            <%=dsldv[i].tenLoaiDichVu%>
+                                        </option>
+                                    <%}%>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Đơn giá:</label>
+                                <input onblur="KiemtraDonGia()" name="donGia" type="number" class="form-control" id="donGia">
+                                <span id="checkdongia" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <button type="submit" class="btn btn-default">Đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({ 
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dịch vụ mỗi trang",
+                    "search": "Tìm Kiếm:",
+                    "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                    "paginate": {
+                        "first":"Đầu tiên",
+                        "last":"Cuối cùng",
+                        "next":"Tiếp",
+                        "previous":"Trở về"
+                    },
+                    "zeroRecords": "Không tìm thấy kết quả",
+                    "info": "Hiển thị trang _PAGE_ của _PAGES_",
+                },
+                "rowReorder": true,
+                "columnDefs": [
+                    { "orderable": true, "className": 'reorder', "targets": 0 },
+                    { "orderable": true, "className": 'reorder', "targets": 1 },
+                    { "orderable": true, "className": 'reorder', "targets": 2 },
+                    { "orderable": true, "className": 'reorder', "targets": 3 },
+                    { "orderable": false, "targets": '_all' }
+                ]
+            
+            });
+        });
+        function confirmDeleteDV(url) {
+            if (confirm("Bạn có chắc muốn xóa dịch vụ này không?")) {
+                location.replace(url)
+            } else {
+                false;
+            }
+        }
+        function KiemTraTen() {
+            var ten = document.getElementById("tenDichVu").value;
+            if (ten != '') {
+                document.getElementById("checkten").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkten").innerHTML = "Tên không hợp lệ";
+                return false;
+            }
+        }
+        function KiemtraDonGia() {
+            var dongia = document.getElementById("donGia").value;
+            if (dongia > 10000) {
+                document.getElementById("checkdongia").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkdongia").innerHTML = "Đơn giá không hợp lệ";
+                return false;
+            }
+        }
+        function validateForm() {
+            if (KiemTraTen() && KiemtraDonGia()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</div>

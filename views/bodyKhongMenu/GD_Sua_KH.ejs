@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="form-group col-xs-5 col-sm-5 col-md-5 col-lg-5" style="margin-left: 30%; border-style: ridge;">
+        
+            <h2 style="text-align: center;font-weight: bold;">Sửa Thông Tin Khách Hàng</h2>   
+            <div>
+                <hr>
+            </div>
+        <form action="/quanly/cnkhachhang/suatt" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="id" value="<%=kh.id%>" required>
+            </div>
+            <div class="form-group">
+                <label>Tên khách hàng:</label>
+                <input value="<%=kh.tenKH%>" type="text" class="form-control" placeholder="Tên khách hàng"
+                    name="ten" required>
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input value="<%=kh.soDT%>" type="text" class="form-control" placeholder="Số điện thoại"
+                    name="soDT" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input value="<%=kh.diaChi%>" type="text" class="form-control" placeholder="Địa chỉ" name="diaChi" required>
+            </div>
+            <div class="form-group">
+                <label for="GioiTinh">Giới Tính:</label>
+                <select class="form-control" name="gioiTinh">
+                    <%if(kh.gioiTinh == "Nam"){%>
+                        <option selected value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    <%}else{%>
+                        <option  value="Nam">Nam</option>
+                        <option selected value="Nữ">Nữ</option>
+                    <%}%>     
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <label>Gmail:</label>
+                <input value="<%=kh.gmail%>" type="text" class="form-control" placeholder="gmail" name="gmail" required> 
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label><input type="checkbox" value="true" name="reset">Đặt lại mật khẩu</label>
+                </div>
+            </div> -->
+            
+            <hr>
+            <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">Lưu Thông tin</button>
+            <div>
+                <br>
+            </div>
+        </form>
+        <button onclick="BacktoHome()" class="btn btn-primary"
+            style="width: 100%;margin-bottom: 5px;height: 40px;border-radius: 20px;">Quay lại</button>
+    </div>
+</div>
+
+<script>
+    function BacktoHome() {
+        location.replace('/quanly/cnkhachhang')
+    }           
+</script>

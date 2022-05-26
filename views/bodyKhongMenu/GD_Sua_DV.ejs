@@ -1,0 +1,47 @@
+<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin-left: 30%; border-style: ridge;">
+    <h2 style="text-align: center;font-weight: bold;">Sửa Thông Tin Dịch Vụ</h2>   
+            <div>
+                <hr>
+            </div>
+    <form action="/quanly/cndichvu/suatt" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="maDichVu" value="<%=dv.maDichVu%>">
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="maLoaiDichVu" value="<%=dv.loaidichvu_maLoaiDichVu%>">
+        </div>
+        <div class="form-group">
+            <label>Tên loại dịch vụ:</label>
+            <select class="form-control" name="tenldv" required>
+                <option selected value="default">
+                   Mặc định
+                </option>
+                <%for(let i=0;i < dsldv.length;i++){%>
+                    <option value="<%=dsldv[i].tenLoaiDichVu%>">
+                        <%=dsldv[i].tenLoaiDichVu%>
+                    </option>
+                <%}%>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Tên dịch vụ:</label>
+            <input value="<%=dv.tenDichVu%>" type="text" class="form-control" placeholder="Tên loại dịch vụ" name="tenDichVu">
+        </div>
+        <div class="form-group">
+            <label>Đơn giá:</label>
+            <input value="<%=dv.donGia%>" type="number" class="form-control" placeholder="Tên loại dịch vụ" name="donGia">
+        </div>
+        <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">Lưu</button>
+        <div>
+            <br>
+        </div>
+    </form>
+    <button onclick="BacktoHome()" class="btn btn-primary"
+            style="width: 100%;margin-bottom: 5px;height: 40px;border-radius: 20px;">Quay lại</button>
+</div>
+<script>
+    function BacktoHome() {
+        location.replace('/quanly/cndichvu')
+    }           
+</script>
+</div>

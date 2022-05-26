@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">CẬP NHẬT TÀI KHOẢN KHÁCH HÀNG</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Mã Khách Hàng</th>
+                        <th>Họ và tên</th>
+                        <th>Tên Đăng Nhập</th>
+                        <th></th>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <%if(dstkkh.length> 0){%>
+                        <%for(let i=0;i< dstkkh.length ; i++) {%>
+                            <tr>
+                                <td>
+                                    <%=dstkkh[i].idtaikhoankhachhang%>
+                                </td>
+                                <td>
+                                    <%=dstkkh[i].idKhachHang%>
+                                </td>
+                                <td>
+                                    <%=dstkkh[i].tenKH%>
+                                </td>
+                                <td>
+                                    <%=dstkkh[i].tenDangNhap%>
+                                </td>
+                                
+                                <td>
+                                    <a class="btn btn-warning" href="/quanly/cntkkhachhang/suatkkh/<%=dstkkh[i].idtaikhoankhachhang%>"
+                                        class="btn btn-warning">Sửa</a>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <%}else{%>
+                                    <tr>
+                                        <td>Không tìm thấy</td>
+                                    </tr>
+                                    <%}%>
+                </tbody>
+
+
+            </table>
+    </div>
+</div>
+<script>
+     $(document).ready( function () {
+        $('#myTable').DataTable({ 
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ tài khoản mỗi trang",
+                "search": "Tìm Kiếm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first":"Đầu tiên",
+                    "last":"Cuối cùng",
+                    "next":"Tiếp",
+                    "previous":"Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": false, "targets": '_all' }
+            ]
+            
+        });
+    });
+</script>
+</div>

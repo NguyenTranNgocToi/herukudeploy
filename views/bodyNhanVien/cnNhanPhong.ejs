@@ -1,0 +1,52 @@
+<div class="row">
+        <div class="col-sm-12" >
+                <h1 style="text-align: center;font-weight: bold;">Mã phòng: <%=list[0].maPhong%> </h1>
+        </div>
+        <div class="col-sm-12" style="border: 2px solid black; padding: 10px; border-radius: 10px; margin-left: 20px;">
+                <div class="col-sm-6" >
+                        <h4><b>Tên khách hàng:</b> <%=list[0].tenKH%></h4>
+                </div>
+                <div class="col-sm-6">
+                        <h4>
+                                <b>Phiếu đặt phòng:</b> <%=list[0].maPhieu%>
+                                (<%for(let i=0;i< list1.length;i++){%>
+                                                <%if (i ==  list1.length-1 ) {%>   
+                                                        <%=list1[i].maPhong%>
+                                                <%}%>
+                                                <%if (i !=  list1.length-1 ) {%>   
+                                                        <%=list1[i].maPhong%> -
+                                                <%}%>
+                                <%}%>)
+                        </h4>
+                </div>
+                <div class="col-sm-6">
+                        <h4><b>Số chứng minh nhân dân:</b> <%=list[0].soCMND%></h4>
+                </div>
+                <div class="col-sm-6">
+                        <h4><b>Ngày đặt phòng:</b> <%=list[0].ngayDat.getFullYear().toString()%>/<%=(list[0].ngayDat.getMonth()+1).toString()%>/<%=list[0].ngayDat.getDate().toString()%>(<%=list[0].ngayDat.getHours().toString()%>:<%=list[0].ngayDat.getMinutes().toString()%>)</h4>
+                </div>
+                <div class="col-sm-12">
+                        <h4><b>Ngày sẽ nhận phòng:</b> <%=list[0].ngayBatDauThue.getFullYear().toString()%>/<%=(list[0].ngayBatDauThue.getMonth()+1).toString()%>/<%=list[0].ngayBatDauThue.getDate().toString()%>(<%=list[0].ngayBatDauThue.getHours().toString()%>:<%=list[0].ngayBatDauThue.getMinutes().toString()%>)</h4>
+                </div>
+                <div class="col-sm-12">
+                        <h4><b>Ngày sẽ trả phòng:</b>  <%=list[0].ngayTra.getFullYear().toString()%>/<%=(list[0].ngayTra.getMonth()+1).toString()%>/<%=list[0].ngayTra.getDate().toString()%>(<%=list[0].ngayTra.getHours().toString()%>:<%=list[0].ngayTra.getMinutes().toString()%>)</h4>
+                </div>
+                
+        </div>
+        <div class="col-sm-12" style="margin-top: 10px">
+                <div class="col-sm-9">
+
+                </div>  
+                <div class="col-sm-3">
+                        <a href="/nhanvien/cnthuephong/nhanphong/<%=list[0].maPhieu%>" class="btn btn-success" style="font-size: 20px;margin-left: 100px;">
+                                Nhận Phòng
+                        </a>
+                        <a href="/nhanvien/cnthuephong"class="btn btn-info" style="font-size: 20px;">Thoát</a> 
+                </div>
+                
+           
+                
+        </div>
+       
+       
+</div>

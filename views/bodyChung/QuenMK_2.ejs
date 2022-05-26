@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    </div>
+    <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4"
+        style="margin-top: 5%;font-family: 'Times New Roman', Times, serif;">
+        <h2 style="text-align: center;font-weight: bold;">QUÊN MẬT KHẨU</h2>   
+            <div>
+                <hr>
+            </div>
+        
+        <form id="from" action="/quenmk1"onsubmit="return validateForm()" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="gmail" value="<%=email%>" required>
+            </div>
+            <div class="form-group">
+                <input onblur="KiemTraCMND()" type="text" class="form-control" placeholder="Số chứng minh thư" name="soCMND" id="soCMND" style="height: 50px;border-radius: 20px;">
+                <span id="checkCMND" style="color: red;font-size: 15px;"></span>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">XÁC
+                NHẬN</button>
+
+                <%if(kt != ''){%>
+                    <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                        <strong>Cảnh báo!</strong> <%=kt%>
+                    </div>
+                <%}%>
+
+            <div>
+                <br>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<script>
+    function KiemTraCMND() {
+            var regSCMND = /(([0-9]{8})\b)$/;
+            var CMND = document.getElementById("soCMND").value;
+            if (regSCMND.test(CMND)) {
+                document.getElementById("checkCMND").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkCMND").innerHTML = "Nhập sai số chứng minh";
+                return false;
+            }
+    }
+     
+        function validateForm() {
+           if(KiemTraCMND()){
+               return true;
+           }else{
+               return false
+           }
+        }
+        
+        
+</script>

@@ -1,0 +1,253 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <p style="font-size: 25px;font-weight: bold;">CẬP NHẬT NHÂN VIÊN</p>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Thêm Nhân
+                Viên</button>
+        </div>
+    </div><br>
+    <div class="row">
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Họ tên</th>
+                        <th>CMND</th>
+                        <th>Điện thoại</th>
+                        <th>Ngày sinh</th>
+                        <th>Địa chỉ</th>
+                        <!-- <th>Tài khoản</th> -->
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%if(dsnv.length> 0){%>
+                        <%for(let i=0;i< dsnv.length ; i++) {%>
+                            <tr>
+                                <td>
+                                    <%=dsnv[i].id%>
+                                </td>
+                                <td>
+                                    <%=dsnv[i].tenNV%>
+                                </td>
+                                <td>
+                                    <%=dsnv[i].soCMND%>
+                                </td>
+                                <td>
+                                    <%=dsnv[i].soDT%>
+                                </td>
+                                <td>
+                                    <%=dsnv[i].ngaySinh.getDate().toString()%>/<%=(dsnv[i].ngaySinh.getMonth()+1).toString()%>/<%=dsnv[i].ngaySinh.getFullYear().toString()%>
+                                </td>
+                                <td>
+                                    <%=dsnv[i].diaChi%>
+                                </td>
+                                <!-- <td>
+                                    <%=dsnv[i].tenDangNhap%>
+                                </td> -->
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                        onClick="confirmDeleteNV('/quanly/cnnhanvien/xoanv/<%=dsnv[i].id%>')">Xóa</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning" href="/quanly/cnnhanvien/suanv/<%=dsnv[i].id%>"
+                                        class="btn btn-warning">Sửa</a>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <%}else{%>
+                                    <tr>
+                                        <td>Không tìm thấy</td>
+                                    </tr>
+                                    <%}%>
+                </tbody>
+
+            </table>
+            <%if(kt != ''){%>
+                <div class="alert alert-warning" style="margin-top: 5px;border-radius: 15px;">
+                    <strong>Cảnh báo!</strong> <%=kt%>
+                </div>
+            <%}%>
+        
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"  style="text-align: center;font-weight: bold;">THÊM NHÂN VIÊN</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/quanly/cnnhanvien/themnv"onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Họ tên:</label>
+                                <input onblur="KiemTraTen()" type="text" class="form-control" name="ten" id="ten">
+                                <span id="checkten" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>CMND:</label>
+                                <input onblur="KiemTraCMND()" type="text" class="form-control" name="soCMND"
+                                    id="soCMND">
+                                <span id="checkCMND" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại:</label>
+                                <input onblur="KiemTraSDT()" type="text" class="form-control" name="soDT" id="soDT">
+                                <span id="checksoDT" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày sinh:</label>
+                                <input onblur="KiemtraNS()" type="date" class="form-control" name="ngaySinh" id="ngaySinh">
+                                <span id="checkdate" style="color: red;font-size: 15px;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Địa chỉ:</label>
+                                <input onblur="KiemTradc()" type="text" class="form-control" name="diachi" id="diaChi">
+                                <span id="checkDC" style="color: red;font-size: 15px;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Tài khoản:</label>
+                                <input onblur="KiemTratk()" type="text" class="form-control" name="tenDangNhap" id="tenDangNhap">
+                                <span id="checkTK" style="color: red;font-size: 15px;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Vai trò:</label>
+                                <select class="form-control" name="vaitro">
+                                    <%for(let i=0;i < dsvt.length;i++){%>
+                                        <option value="<%=dsvt[i].ten%>">
+                                            <%=dsvt[i].ten%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-default">Đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({ 
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ nhân viên mỗi trang",
+                    "search": "Tìm Kiếm:",
+                    "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                    "paginate": {
+                        "first":"Đầu tiên",
+                        "last":"Cuối cùng",
+                        "next":"Tiếp",
+                        "previous":"Trở về"
+                    },
+                    "zeroRecords": "Không tìm thấy kết quả",
+                    "info": "Hiển thị trang _PAGE_ của _PAGES_",
+                },
+                "rowReorder": true,
+                "columnDefs": [
+                    { "orderable": true, "className": 'reorder', "targets": 0 },
+                    { "orderable": true, "className": 'reorder', "targets": 1 },
+                    { "orderable": true, "className": 'reorder', "targets": 2 },
+                    { "orderable": true, "className": 'reorder', "targets": 3 },
+                    { "orderable": false, "targets": '_all' }
+                ]
+            
+            });
+        });
+        function confirmDeleteNV(url) {
+            if (confirm("Bạn có chắc muốn xóa nhân viên này không?")) {
+                location.replace(url)
+            } else {
+                false;
+            }
+        }
+        function KiemTraCMND() {
+            var regSCMND = /(([0-9]{8})\b)$/;
+            var CMND = document.getElementById("soCMND").value;
+            if (regSCMND.test(CMND)) {
+                document.getElementById("checkCMND").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checkCMND").innerHTML = "Nhập sai số chứng minh";
+                return false;
+            }
+        }
+        function KiemTratk() {
+            var tk = document.getElementById("tenDangNhap").value;
+            if (tk == '') {
+                document.getElementById("checkTK").innerHTML = "Tài khoản không được để trống";
+                return false;
+            } else {
+                document.getElementById("checkTK").innerHTML = "";
+                return true;
+            }
+        }
+        function KiemTraTen() {
+            var ten = document.getElementById("ten").value;
+            if (ten == '') {
+                document.getElementById("checkten").innerHTML = "Tên không được để trống";
+                return false;
+            } else {
+                document.getElementById("checkten").innerHTML = "";
+                return true;
+            }
+        }
+        function KiemTradc() {
+            var dc = document.getElementById('diaChi').value;
+            if (dc != '') {
+                document.getElementById('checkDC').innerHTML = "";
+                return true;
+            } else {
+                document.getElementById('checkDC').innerHTML = "Nhập sai địa chỉ";
+                return false;
+            }
+
+        }
+        function KiemtraNS(){
+            var ngaysinh= document.getElementById('ngaySinh').value;   
+            ngaysinh=new Date(ngaysinh);    
+            var ngayHT=new Date();     
+            
+            if(ngaysinh<ngayHT)
+            {
+                
+                document.getElementById("checkdate").innerHTML = "";
+                return true;
+            }  
+            else
+            {
+                document.getElementById("checkdate").innerHTML = "Ngày sinh phải nhỏ hơn ngày hiện tại";
+                return false;
+            }
+        }
+        function KiemTraSDT() {
+            var regSDT = /((09|03|07|08|05)+([0-9]{8})\b)$/;
+            var SDT = document.getElementById("soDT").value;
+            if (regSDT.test(SDT)) {
+                document.getElementById("checksoDT").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("checksoDT").innerHTML = "Nhập sai định dạng số điện thoại";
+                return false;
+            }
+        }
+        function validateForm() {
+        if (KiemTraCMND() && KiemTratk() && KiemTraSDT() && KiemTraTen() && KiemTradc() &&KiemtraNS()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    </script>
+</div>

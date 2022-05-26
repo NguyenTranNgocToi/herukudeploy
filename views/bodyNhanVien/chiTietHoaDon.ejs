@@ -1,0 +1,210 @@
+
+<div id="hoaDon" style="padding: 5%;margin-top: -70px;">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 style="text-align: center; color: red;"> <b>HÓA ĐƠN</b></h1>
+        </div>
+    </div>
+    <%var tongCong=0; var tienCoc=0 %>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4><b>Tên Khách Hàng:</b>
+                    <%=list[0].tenKH%>
+                </h4>
+            </div>
+            <div class="col-sm-6">
+                <h4><b>Số CMND:</b>
+                    <%=list[0].soCMND%>
+                </h4>
+            </div>
+            <div class="col-sm-6">
+                <h4><b>Mã Hóa Đơn:</b>
+                    <%=list[0].maHoaDon%>
+                </h4>
+            </div>
+            <div class="col-sm-6">
+                <h4><b>Ngày lập hóa đơn:</b>
+                    <%=list[0].ngayLapHoaDon.getDate().toString()%>/
+                        <%=(list[0].ngayLapHoaDon.getMonth()+1).toString()%>/
+                            <%=list[0].ngayLapHoaDon.getFullYear().toString()%>
+                                (<%=list[0].ngayLapHoaDon.getHours().toString()%>:
+                                    <%=list[0].ngayLapHoaDon.getMinutes().toString()%>)
+                </h4>
+            </div>
+            <div class="col-sm-6">
+                <h4><b>Tên Nhân viên:</b>
+                    <%=list[0].tenNV%>
+                </h4>
+            </div>
+        </div>
+</div>
+    <!-- <div class="html2pdf__page-break"></div> -->
+
+    <div class="row">
+        
+        <div class="col-sm-11" style="margin-left:40px ;margin-top: -50px;"> 
+            <h4 style="text-align: left"><b>Các phòng đã thuê:</b></h4>
+                <table class="table table-bordered" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>Mã Phòng</th>
+                            <th>Loại Phòng</th>
+                            <th>Ngày bắt đầu thuê</th>
+                            <th>Ngày trả phòng</th>
+                            <th>Thời gian thuê</th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for(let i=0;i< list.length;i++){%>
+                            <tr style="background-color: lightgoldenrodyellow;">
+
+                                <td>
+                                    <%=list[i].maPhong%>
+                                </td>
+                                <td>
+                                    <%=list[i].tenLoaiPhong%>
+                                </td>
+                                <td>
+                                    <%=list[i].ngayNhanPhong.getFullYear().toString()%>/
+                                        <%=(list[i].ngayNhanPhong.getMonth()+1).toString()%>/
+                                            <%=list[i].ngayNhanPhong.getDate().toString()%>(
+                                                <%=list[i].ngayNhanPhong.getHours().toString()%>:
+                                                    <%=list[i].ngayNhanPhong.getMinutes().toString()%>)
+                                </td>
+                                <td>
+                                    <%=list[i].ngayTraPhong.getFullYear().toString()%>/
+                                        <%=(list[i].ngayTraPhong.getMonth()+1).toString()%>/
+                                            <%=list[i].ngayTraPhong.getDate().toString()%>(
+                                                <%=list[i].ngayTraPhong.getHours().toString()%>:
+                                                    <%=list[i].ngayTraPhong.getMinutes().toString()%>)
+                                </td>
+                                <td>
+                                    <%=list[i].days%> ngày, <%=list[i].hours%> Giờ
+                                </td>
+                                <td>
+                                    <%=list[i].donGia%> VNĐ / ngày
+                                </td>
+
+                                <%tongCong=tongCong +(list[i].days*list[i].donGia)+(list[i].hours*list[i].donGia/24)%>
+                                    <%tienCoc=tienCoc +list[i].donGia*30/100 %>
+                            </tr>
+                            <%}%>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+    <!-- <div class="html2pdf__page-break"></div> -->
+    <div class="row">
+        <div class="col-sm-11" style="margin-left:40px ;"> 
+            <h4 style="text-align: left"><b>Các dịch vụ đã sử dụng:</b></h4>
+            <table class="table table-bordered" id="myTable">
+                <thead >
+                <tr>
+                    <th>Mã Phòng</th>
+                    <th>Loại Dịch Vụ</th>
+                    <th>Tên Dịch Vụ</th>
+                    <th>Số Lượng</th>
+                    <th>Giá</th>
+                </tr>
+                </thead>
+                <tbody >
+                    <%for(let i=0;i< list1.length;i++){%>
+                        <tr style="background-color: lightgoldenrodyellow;">
+                        
+                            <td>
+                                <%=list1[i].maPhong%>
+                            </td>
+                            <td>
+                                <%=list1[i].tenLoaiDichVu%> 
+                            </td>
+                            <td>
+                                <%=list1[i].tenDichVu%> 
+                            </td>
+                            <td>
+                                <%=list1[i].soLuong%> 
+                            </td>
+                            <td>
+                                <%=list1[i].donGia%> 
+                            </td>
+                            <%tongCong = tongCong +(list1[i].soLuong*list1[i].donGia) %>
+                        </tr>
+                    <%}%>  
+                </tbody>
+            </table> 
+        </div>
+    </div>
+    <!-- <div class="html2pdf__page-break"></div> -->
+    <div class="row" style="margin-left: 40px;">
+        <h4 style="text-align: left"><b>Tổng Cộng:</b><%=tongCong.toFixed(0)%> VNĐ</h4>
+
+        <!-- <h3>Tiền Đã Cọc:<%=list[0].tienCoc%> </h3>
+        <h3>Tiền Đã Cọc1:<%=tienCoc%> </h3>
+        <h1 style="text-align: right;">Tổng Cộng:<%=tongCong.toFixed(0) - tienCoc %>VNĐ
+        -->
+        <%if(list[0].tienCoc != 0 && list[0].tienCoc <= tongCong){%>
+            <h4 style="text-align: left;"><b>Tiền Đã Cọc:</b><%=tienCoc%> VNĐ </h4>
+            <h3 style="text-align: left;"><b>Số Tiền Phải Trả:</b> <%=tongCong.toFixed(0) - tienCoc %> VNĐ
+        <%}%>
+        <%if(list[0].tienCoc != 0 && list[0].tienCoc > tongCong){%>
+            <h4 style="text-align: left;"><b>Tiền Đã Cọc:</b><%=tienCoc%> VNĐ </h4>
+            <h3 style="text-align: left;"><b>Số Tiền Phải Trả:</b> 0 VNĐ
+        <%}%>  
+
+        <%if(list[0].tienCoc == 0){%>
+            <h4 style="text-align: left;"><b>Tiền Đã Cọc: </b>0%> VNĐ</h4>
+            <h3 style="text-align: left;"><b>Số Tiền Phải Trả:</b><%=tongCong.toFixed(0) %> VNĐ</h3>
+        <%}%>    
+        <h3 style="text-align: center; margin-top: 40px;color: blue;">Cảm Ơn Quý Khách Hàng Đã Sử Dụng Dịch Vụ Của Chúng Tôi!</h3>
+    </div>
+
+</div>
+<div class="row col-sm-6">
+    <div class="col-sm-6">
+        <button class="btn btn-success" onclick="inHD()" style="margin-left: 1250px;margin-bottom: 5px;">In Hóa
+            Đơn</button>
+        <!-- <button class="btn btn-primary" style="margin-left: 1250px;margin-bottom: 50px;width:100px;"></button> -->
+        <a href="/nhanvien/cnthuephong/listhoadon"  style="margin-left: 1250px;margin-bottom: 50px;width:100px;" class="btn btn-primary">Trở về</a>
+    </div>
+    
+</div>
+<script>
+
+    function inHD() {
+
+        const hoaDon = document.getElementById("hoaDon");
+        // console.log(hoaDon);
+        const opt = {
+            margin: 0,
+            filename: 'myfile.pdf',
+            image: { type: 'png', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+            
+        };
+
+
+        console.log(window);
+        // html2pdf().from(hoaDon).save()
+        // html2pdf(hoaDon, {
+        //     margin:       0,
+        //     filename:     'myfile.pdf',
+        //     image:        { type: 'jpeg', quality: 0.98 },
+        //     html2canvas:  { scale: 1, logging: true, dpi: 192, letterRendering: true },
+        //     jsPDF:        { unit: 'mm', format: 'government-letter', orientation: 'portrait' }
+        //     });
+        window.print(hoaDon)
+    }
+    // document.location.reload(true)
+    if ('<%=kq%>' == 0) {
+        setTimeout(function () {
+
+            window.location.href = "/nhanvien/cnthuephong/chitiethoadonvualap"
+        }, 2000);
+
+    }
+
+
+
+</script>

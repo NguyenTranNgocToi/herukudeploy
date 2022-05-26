@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="form-group col-xs-5 col-sm-5 col-md-5 col-lg-5" style="margin-left: 30%; border-style: ridge;">
+        <h2 style="text-align: center;font-weight: bold;">Sửa Thông Tin Nhân Viên</h2>   
+        <div>
+            <hr>
+        </div>
+        <form action="/quanly/cnnhanvien/suatt" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="id" value="<%=nv.id%>" required>
+            </div>
+            <div class="form-group">
+                <label>Họ tên:</label>
+                <input value="<%=nv.tenNV%>" type="text" class="form-control" placeholder="Tên nhân viên" name="ten"
+                    required>
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input value="<%=nv.soDT%>" type="text" class="form-control" placeholder="Số điện thoại" name="soDT"
+                    required>
+            </div>
+            <div class="form-group">
+                <label>Ngày sinh:</label>
+                <input
+                    value="<%=nv.ngaySinh.getFullYear().toString()%>-<%=(nv.ngaySinh.getMonth()+1).toString()%>-<%=nv.ngaySinh.getDate().toString()%>"
+                    type="text" class="form-control" placeholder="Ngày sinh" name="ngaySinh" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input value="<%=nv.diaChi%>" type="text" class="form-control" placeholder="Địa chỉ" name="diachi"
+                    required>
+            </div>
+            <!-- <div class="form-group">
+                <label>Tài khoản:</label>
+                <input value="<%=nv.tenDangNhap%>" type="text" class="form-control" placeholder="Tài khoản"
+                    name="tenDangNhap" required>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label><input type="checkbox" value="true" name="reset">Đặt lại mật khẩu</label>
+                </div>
+            </div> -->
+
+            <hr>
+            <button type="submit" class="btn btn-success" style="width: 100%;height: 40px;border-radius: 20px;">Lưu Thông tin</button>
+            <div>
+                <br>
+            </div>
+        </form>
+        <button onclick="BacktoHome()" class="btn btn-primary"
+            style="width: 100%;margin-bottom: 5px;height: 40px;border-radius: 20px;">Quay lại</button>
+    </div>
+    <script>
+        function BacktoHome() {
+            location.replace('/quanly/cnnhanvien')
+        }           
+    </script>
+</div>

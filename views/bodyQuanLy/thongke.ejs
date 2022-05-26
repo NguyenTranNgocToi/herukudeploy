@@ -1,0 +1,491 @@
+
+ <div class="row">
+    <div class="col-sm-10">
+
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-success" onclick="inHD()" style="margin-right:50px ;">In Thống
+            Kê</button>
+    </div>
+    
+</div>
+
+<div id="ThongKe"  class="row">
+
+   
+    <div class="row">
+       
+        <div class="col-sm-12">
+            <h1 style="text-align: center"><b>THỐNG KÊ DOANH THU</b></h1>
+            <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-3" style="font-weight: bold;font-size: 18px;">
+            Từ ngày:
+            <input id="dateBegin" type="date" name="month" onchange="getDoanhThu()">
+        </div>
+        <div class="col-sm-3" style="font-weight: bold;font-size: 18px;">
+            Đến ngày:
+            <input id="dateEnd" type="date" name="month" onchange="getDoanhThu()">
+        </div>
+
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 style="text-align: center;">Chi Tiết Doanh Thu Phòng</h3>
+            <div class="col-sm-12" style=" margin-left:0.2%">
+                <table class="table table-striped2" id="table2" style="border: 2px solid #b1154a;border-radius:15px;">
+                    <thead>
+                        <tr>
+                            <th>Mã Phòng</th>
+                            <th>Loại Phòng</th>
+                            <th>Mã Hóa Đơn</th>
+                            <th>Ngày Giờ Thu</th>
+                            <th>Người Thu</th>
+                          
+                            
+                            <th>Giá Phòng</th>
+                            <th>Ngày Giờ Bắt Đầu Thuê</th>
+                            <th>Ngày Giờ Trả Phòng</th>
+                            <th>Thời Gian Thuê</th>
+                            <th>Thành Tiền</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="bodytable2">
+                        <!-- <tr id="">
+                                <td>list1[i].tenDich</td>
+                                <td>list1[i].tenLoai</td>
+                                <td>list1[i].donGia</td>
+                                <td>  
+                                      <input type="checkbox" id="" name="" value="true">
+                                </td>
+                            </tr>  -->
+
+                    </tbody>
+                </table>
+                <h3><p id="SoPhong" style="text-align: left;">Số Phòng Đã Thuê:</p></h3>
+                <h3><p id="DoanhThuPhong" style="text-align: left;">Tổng Doanh Thu Phòng</p></h3>
+            </div>
+            
+          
+           
+              
+           
+        </div>
+        <div class="col-sm-12">
+            <h3 style="text-align: center;">Chi Tiết Doanh Thu Dịch Vụ</h3>
+            <div class="col-sm-12" style=" margin-left:0.2%">
+                <table class="table table-striped2" id="table1" style="border: 2px solid #b1154a;border-radius:15px;">
+                    <thead>
+                        <tr>  
+                            <th>Tên Dịch Vụ</th>
+                            <th>Mã Hóa Đơn</th>
+                            <th>Ngày Giờ Thu</th>
+                            <th>Người Thu</th>
+                            <th>Đơn Giá</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="bodytable1">
+                        <!-- <tr id="">
+                                <td>list1[i].tenDich</td>
+                                <td>list1[i].tenLoai</td>
+                                <td>list1[i].donGia</td>
+                                <td>  
+                                      <input type="checkbox" id="" name="" value="true">
+                                </td>
+                            </tr>  -->
+
+                    </tbody>
+                </table>
+                <h3><p id="SoDichVu"  style="text-align: left;">Số Dịch Vụ Đã Được Sử Dụng:</p></h3>
+                <h3><p id="DoanhThuDichVu" style="text-align: left;">Tổng Doanh Thu Dịch Vụ:</p></h3>
+           
+           
+               
+            </div>
+           
+              
+          
+        </div>
+
+
+    </div>
+    <div class="row">
+       
+        <div class="col-sm-12">
+            <h1><p id="TongDoanhThu" style="text-align: center;">Tổng Doanh Thu:</p></h1>
+        </div>
+    </div>
+    <div style="background: black;height: 2px;width: 1150px;margin-bottom: 20px;"></div>
+    <div class="row">
+        <h3 style="text-align: center;margin-top: 20px;">Các Sơ Đồ</h3>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <canvas id="linechart">
+
+            </canvas>
+        </div>
+        <div class="col-sm-6">
+            <canvas id="barchart">
+
+            </canvas>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-sm-6">
+            <canvas id="linechart1">
+
+            </canvas>
+        </div>
+        <div class="col-sm-6">
+            <canvas id="barchart1">
+
+            </canvas>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var testDichVu = {
+        ngayLapHoaDon: "2022-05-17",
+        maDichVu: "1",
+        tenDichVu: "coca",
+        donGia: "150000",
+        soLuong: "2"
+    };
+    var testPhong = {
+        ngayLapHoaDon: "2022-05-17",
+        maPhong: "001",
+        tenLoaiPhong: "Phòng Đơn",
+        soNgayThue: "2",
+        soGiothue: "3",
+        tienThu: "1000000",
+        donGia: "10000"
+
+    };
+
+    function renderTable1(dv) {
+
+        var x = dv.ngayLapHoaDon
+        x = x.replace("T", " ");
+        var result = x.substring(0, x.length - 5);
+        //  alert(x)
+        var temp =
+            "<tr id=\"idrow" + result + "\">" +
+            "<td>" + dv.tenDichVu + "</td>" +
+            "<td>" + dv.maHoaDon + "</td>" +
+            "<td>" + result + "</td>" +
+            "<td>" + dv.tenNV + "</td>" +
+          
+          
+            "<td>" + dv.donGia + "VND</td>" +
+            "<td>" + dv.soLuong + "</td>" +
+            "<td>" + (dv.soLuong * dv.donGia).toFixed(2) + "VND</td>" +
+            "</tr>"
+        // alert("render")
+
+        var temps = $('#bodytable1');
+        $(temp).appendTo(temps);
+
+
+    }
+    function renderTable2(p) {
+
+        var x = p.ngayLapHoaDon
+        x = x.replace("T", " ");
+        var result = x.substring(0, x.length - 5);
+
+
+        var y = p.ngayNhanPhong
+        y = y.replace("T", " ");
+        var result1 = y.substring(0, x.length - 5);
+
+
+        var z = p.ngayTraPhong
+        z = z.replace("T", " ");
+        var result2 = z.substring(0, x.length - 5);
+
+        //  alert(x)
+        var temp =
+            "<tr id=\"idrow" + result + "\">" +
+            "<td>" + p.maPhong + "</td>" +
+            "<td>" + p.tenLoaiPhong + "</td>" +
+            "<td>" + p.maHoaDon + "</td>" +
+            "<td>" + result + "</td>" +
+            "<td>" + p.tenNV + "</td>" +
+          
+           
+            "<td>" + p.donGia + "VND</td>" +
+            "<td>" + result1 + "</td>" +
+            "<td>" + result2 + "</td>" +
+            "<td>" + p.soNgayThue + " ngày, " + p.soGioThue + " giờ" + "</td>" +
+            "<td>" + p.tienThu.toFixed(2) + "VND</td>" +
+            "</tr>"
+        // alert("render")
+
+        var temps = $('#bodytable2');
+        $(temp).appendTo(temps);
+
+
+    }
+    function getDoanhThu() {
+        var dateBegin = document.getElementById('dateBegin')
+        var dateEnd = document.getElementById('dateEnd')
+        var doanhthuphong = 0;
+        var doanhthudichvu = 0;
+        var soPhong = 0
+        var soDichVu = 0
+
+
+        if (dateBegin.value <= dateEnd.value && dateBegin.value != '' && dateEnd != '') {
+            // alert('chay here')
+            var doanhthudichvu = 0
+            var sodichvu = 0
+            var doanhthuphong = 0
+            var sophong = 0
+            var temps = document.getElementById('bodytable1');
+            temps.innerHTML = ""
+            var temps1 = document.getElementById('bodytable2');
+            temps1.innerHTML = ""
+            var settings1 = {
+                url: "/quanly/getthongkedoanhthudichvuthang?dateBegin=" + dateBegin.value + "&dateEnd=" + dateEnd.value,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    document.getElementById("DoanhThuDichVu").innerHTML = "Tổng Doanh Thu Dịch Vụ: " + doanhthudichvu + "VND";
+                    document.getElementById("SoDichVu").innerHTML = "Số Dịch Vụ Đã Được Sử Dụng: " + sodichvu;
+                    for (var dichvu of data) {
+                        renderTable1(dichvu)
+
+                        doanhthudichvu = doanhthudichvu + Number(dichvu.soLuong * dichvu.donGia)
+                        sodichvu = sodichvu + dichvu.soLuong
+                        //        alert(doanhthudichvu)
+                        // alert(soDichVu)
+                        document.getElementById("DoanhThuDichVu").innerHTML = "Tổng Doanh Thu Dịch Vụ: " + doanhthudichvu + "VND";
+                        document.getElementById("SoDichVu").innerHTML = "Số Dịch Vụ Đã Được Sử Dụng: " + sodichvu;
+
+                    }
+
+
+                }
+            };
+            $.ajax(settings1);
+
+            var settings2 = {
+                url: "/quanly/getthongkedoanhthuphongthang?dateBegin=" + dateBegin.value + "&dateEnd=" + dateEnd.value,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    document.getElementById("DoanhThuPhong").innerHTML = "Tổng Doanh Thu Phòng: " + doanhthuphong.toFixed(0) + "VND";
+                    document.getElementById("SoPhong").innerHTML = "Số Phòng Đã Thuê: " + sophong;
+                    for (var phong of data) {
+
+                        if (phong.soNgayThue != 0 || phong.soGioThue != 0) {
+
+
+                            doanhthuphong = doanhthuphong + Number(phong.tienThu)
+                            sophong = sophong + 1
+                            renderTable2(phong)
+
+                        }
+
+                        document.getElementById("DoanhThuPhong").innerHTML = "Tổng Doanh Thu Phòng: " + doanhthuphong.toFixed(0) + "VND";
+                        document.getElementById("SoPhong").innerHTML = "Số Phòng Đã Thuê: " + sophong;
+
+                    }
+                    // alert(doanhthudichvu)
+                    // alert(doanhthuphong)
+                    document.getElementById("TongDoanhThu").innerHTML = "Tổng Doanh Thu: " + (doanhthuphong + doanhthudichvu).toFixed(2) + "VND";
+                    if (doanhthuphong > 0 || doanhthudichvu > 0) {
+                        veSoDoTron1(doanhthuphong, doanhthudichvu, 'linechart')
+                        veSoDoCot1(doanhthuphong, doanhthudichvu, 'barchart')
+                    } else {
+                        let chartStatus = Chart.getChart('linechart'); // <canvas> id
+                        if (chartStatus != undefined) {
+                            chartStatus.destroy();
+                        }
+                        let chartStatus1 = Chart.getChart('barchart'); // <canvas> id
+                        if (chartStatus1 != undefined) {
+                            chartStatus1.destroy();
+                        }
+                    }
+                    if (sophong > 0 || sodichvu > 0) {
+                        veSoDoTron2(sophong, sodichvu, 'linechart1')
+                        veSoDoCot2(sophong, sodichvu, 'barchart1')
+                    } else {
+                        let chartStatus2 = Chart.getChart('linechart1'); // <canvas> id
+                        if (chartStatus2 != undefined) {
+                            chartStatus2.destroy();
+                        }
+                        let chartStatus3 = Chart.getChart('barchart1'); // <canvas> id
+                        if (chartStatus3 != undefined) {
+                            chartStatus3.destroy();
+                        }
+                    }
+
+                }
+            };
+            $.ajax(settings2);
+
+        }
+
+
+
+
+        function veSoDoTron1(phong, dichvu, id) {
+            var chart = document.getElementById(id).getContext('2d');
+
+            var x = 0;
+            var y = 0;
+            if (phong != 0 && dichvu != 0) {
+                var bienx = ['Doanh thu phòng VND', 'Doanh thu dịch vụ VND']
+
+                // alert(phong +":"+dichvu)
+                var bieny = [phong, dichvu];
+
+
+                let chartStatus = Chart.getChart(id); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+
+                var line_chart = new Chart(chart, {
+                    type: 'doughnut',
+
+                    data: {
+                        labels: ['Doanh thu phòng', 'Doanh thu dịch vụ'],
+                        datasets: [{
+                            label: 'Biều Đồ Tròn',
+                            backgroundColor: ['#ccccff', '#ddffcc'],
+                            data: bieny
+                        }]
+
+                    }
+                })
+
+
+
+
+            }
+
+        }
+        function veSoDoTron2(phong, dichvu, id) {
+            var chart = document.getElementById(id).getContext('2d');
+
+            var x = 0;
+            var y = 0;
+            if (phong != 0 && dichvu != 0) {
+
+
+                // alert(phong +":"+dichvu)
+                var bieny = [phong, dichvu];
+
+
+                let chartStatus = Chart.getChart(id); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+
+                var line_chart = new Chart(chart, {
+                    type: 'doughnut',
+
+                    data: {
+                        labels: ['Số phòng đã thuê', 'Số dịch vụ đã sử dụng'],
+                        datasets: [{
+                            label: 'Biều Đồ Tròn',
+                            backgroundColor: ['rgb(0, 255, 0)', 'rgb(0, 191, 255)'],
+                            data: bieny
+                        }]
+
+                    }
+                })
+
+
+
+
+            }
+
+        }
+        function veSoDoCot1(phong, dichvu, id) {
+            var chart = document.getElementById(id).getContext('2d');
+
+            var x = 0;
+            var y = 0;
+            if (phong != 0 && dichvu != 0) {
+                var bienx = ['Doanh thu phòng', 'Doanh thu dịch vụ'];
+                // alert(phong +":"+dichvu)
+                var bieny = [phong, dichvu];
+
+
+                let chartStatus = Chart.getChart(id); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                var line_chart = new Chart(chart, {
+                    type: 'bar',
+
+                    data: {
+                        labels: bienx,
+                        datasets: [{
+                            label: 'Biểu Đồ Cột Doanh Thu Phòng Và Dịch Vụ',
+                            backgroundColor: ['#00cc99', '#ffcc00'],
+                            data: bieny
+                        }]
+
+                    }
+                })
+            }
+        }
+        function veSoDoCot2(phong, dichvu, id) {
+            var chart = document.getElementById(id).getContext('2d');
+
+            var x = 0;
+            var y = 0;
+            if (phong != 0 && dichvu != 0) {
+                var bienx = ['Số phòng đã thuê', 'Số dịch vụ đã sử dụng'];
+                // alert(phong +":"+dichvu)
+                var bieny = [phong, dichvu];
+
+
+                let chartStatus = Chart.getChart(id); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                var line_chart = new Chart(chart, {
+                    type: 'bar',
+
+                    data: {
+                        labels: bienx,
+                        datasets: [{
+                            label: 'Biểu Đồ Cột Số Phòng Đã Thuê Và Số Dịch Vụ Đã Sử Dụng',
+                            backgroundColor: ['#ddffcc', '#99ccff'],
+                            data: bieny
+                        }]
+
+                    }
+                })
+            }
+        }
+
+    }
+
+    function inHD() {
+        const hoaDon = document.getElementById("ThongKe");
+        window.print(hoaDon)
+
+    }
+
+</script>

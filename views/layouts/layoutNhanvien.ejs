@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- table data -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <title>
+        <%- title %>
+    </title>
+
+
+</head>
+
+<body>
+  
+        <!-- <nav class="navbar navbar-inverse">
+
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Nhân viên khách sạn</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active" style="width: 150px;text-align: center;"><a href="/quanly">Trang chủ</a>  </li> 
+                        <li class="dropdown" style="width: 150px;text-align: center;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hệ thống &ensp;
+                                <span class="caret"></span></a> 
+                            <ul class="dropdown-menu">
+                                    <li><a href="/nhanvien/cnmatkhau">Đổi mật khẩu</a></li>
+                                <li><a href="#">Đăng xuất</a></li>
+                               
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cập nhật  &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                    <li><a href="/nhanvien/cnkhachhang">Khách hàng</a></li>
+                                <li><a href="/nhanvien/cntaikhoankhachhang">Tài khoản khách hàng</a></li>
+                             
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Xử lý  &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/nhanvien/cndsDatPhong">Đặt phòng</a></li>
+                                <li><a href="/nhanvien/cnthuephong">Thuê phòng</a></li>
+                                <li><a href="/nhanvien/cnthuephongchitiet">Thêm dịch vụ phòng</a></li>
+                                <li><a href="#">Lập hóa đơn</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Báo biểu &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Số lượng khách hàng</a></li>
+                                <li><a href="#">Doanh thu</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+           
+                </div>
+            </nav> -->
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/quanly">QUẢN LÝ KHÁCH SẠN</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active" style="width: 150px;text-align: center;font-size: 15px;font-weight: bold;"><a href="/quanly">Trang chủ</a> </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hệ Thống &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/nhanvien/dangxuat">Đăng xuất</a></li>
+                                <li><a href="/quanly/doimk">Đổi mật khẩu</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Phòng &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/nhanvien/cndsDatPhong">Đặt phòng</a></li>
+                                <li><a href="/nhanvien/cnthuephong">Thuê phòng</a></li>
+                                <li><a class="qlmenu" href="/quanly/cnloaiphong">Cập Nhật Loại phòng</a></li>
+                                <li><a class="qlmenu" href="/quanly/cnphong">Cập Nhật Phòng</a></li>
+                                <li><a class="qlmenu" href="/quanly/timphong">Tìm Kiếm Phòng</a></li>
+                                <!-- <li><a class="qlmenu" href="">Khách Đặt</a></li> -->
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dịch Vụ &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="qlmenu"  href="/quanly/cnloaidv">Cập Nhật Loại Dịch Vụ</a></li>
+                                <li><a class="qlmenu"  href="/quanly/cndichvu">Cập Nhật Dịch vụ</a></li>
+                                <li><a href="/quanly/timdv">Tìm kiếm Dịch vụ</a></li>
+                                <!-- <li><a href="/nhanvien/cnthuephongchitiet">Thêm dịch vụ phòng</a></li> -->
+                            </ul>
+                        </li>
+                        <li class="dropdown qlmenu" style="width: 150px;text-align: center;;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Nhân Viên &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="qlmenu" href="/quanly/cnnhanvien">Cật Nhật Nhân Viên</a></li>
+                                <li><a class="qlmenu" href="/quanly/cntknhanvien">Cật Nhật Tài Khoản Nhân Viên</a></li>
+                                <li><a class="qlmenu" href="/quanly/timnv">Tìm Kiếm Nhân Viên</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Khách Hàng &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a  href="/quanly/cnkhachhang">Cập Nhật Khách hàng</a></li>
+                                <li><a href="/quanly/cntkkhachhang">Cập Nhật Tài Khoản Khách Hàng</a></li>
+                                <li><a href="/quanly/timkh">Tìm Kiếm Khách Hàng</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" style="width: 150px;text-align: center;;font-size: 15px;font-weight: bold;">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hóa Đơn &ensp;
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <!-- <li><a href="#">Thanh Toán</a></li> -->
+                                <li><a href="/nhanvien/cnthuephong/listhoadon">Tìm Kiếm Hóa Đơn</a></li>
+                                <li><a class="qlmenu"  href="/quanly/thongkedoanhthu">Thống Kê Doanh Thu</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    <div class="container" style="width: 95%;">        
+        <!-- <h1>Layout Nhan Vien</h1> -->
+        <%-body %>
+    </div>
+</body>
+<script>
+    const collection = document.getElementsByClassName("qlmenu");
+    let x = "";
+    // console.log("cookie"+x);
+
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if("ql" == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+           x= cookiePair[1];
+           if(x=="0"){
+               
+                for (var j = 0; j < collection.length; j ++) {
+                    collection[j].style.display = 'none';
+                }
+            }
+        }
+    }
+    // console.log("cookie"+x);
+   
+</script>
+</html>

@@ -1,0 +1,140 @@
+<h1 style="text-align: center;font-weight: bold;">DANH SÁCH PHIẾU ĐẶT PHÒNG</h1>
+<style>
+ 
+</style>
+<div class="row">
+    <!-- <div class="col-sm-4" style="border: 1px solid black; padding: 10px; border-radius: 10px; margin-left: 20px;"> -->
+        <!-- <a href="formdatphong" type="button" class="btn" style="margin-right: 0%">Đặt Phòng</a>     -->
+
+        <!-- <form action="/nhanvien/formdatphong" method="get" enctype="multipart/form-data">
+            <div class="col-sm-5">
+
+                <label for="ngaybatdau">Ngày thuê:</label>
+                <input type="datetime-local" id="ngaybatdau" onchange="ktngaytra()" name="ngaybatdau" required>
+
+            </div>
+            <div class="col-sm-5">
+
+                <label for="ngaytra">Ngày trả:</label>
+                <input type="datetime-local" id="ngaytra" onchange="ktngaytra()" name="ngaytra" required>
+
+
+
+            </div>
+            <div class="col-sm-2">
+                <label></label>
+                <button type="submit" id="btnsubmit" class="btn btn-default">Đặt Phòng</button>
+
+            </div>
+        </form> -->
+        <a href="/khachhang/formdatphong" class="btn btn btn-info" style="width:10%;background-color:green;">Đặt Phòng</a>
+    <!-- </div> -->
+
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-12" style=" margin-left:0.2%; height:510px">
+
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <th>Mã phiếu thuê</th>
+                    <th>Ngày lập</th>
+                 
+                    <th>Tên Khách Hàng</th>
+                    <th>Số CMND khách hàng</th>
+                    <th>Điện thoại</th>
+                    <th>Chi tiết</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr>
+                                        <td>12</td>
+                                        <td>Nguyễn Văn A</td>
+                                        <td>29/10/2021</td>
+                                        <td>Phan Thị B</td>
+                                        <td><button type="button" class="btn">Xem</button> </td>
+                                        <td><button type="button" class="btn-danger">Xóa</button> </td>
+                                </tr>  -->
+                <%for(let i=0;i< list.length;i++){%>
+                    <tr>
+
+                        <td>
+                            <%=list[i].maPhieu%>
+                        </td>
+                    
+                        <td>
+                            <%=list[i].ngayDat.getFullYear().toString()%>/<%=(list[i].ngayDat.getMonth()+1).toString()%>
+                                    /<%=list[i].ngayDat.getDate().toString()%>(
+                                        <%=list[i].ngayDat.getHours().toString()%>:
+                                            <%=list[i].ngayDat.getMinutes().toString()%>)
+                        </td>
+                     
+                        <td>
+                            <%=list[i].tenKH%>
+                        </td>
+                        <td>
+                            <%=list[i].soCMND%>
+                        </td>
+                        <td>
+                            <%=list[i].soDT%>
+                        </td>
+                        <td> <a href="/khachhang/cndsDatPhong/xem/<%=list[i].maPhieu%>"><button type="button"
+                                    class="btn">Xem</button> </a></td>
+                        <td> <a href="/khachhang/cndsDatPhong/xoa/<%=list[i].maPhieu%>"onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                <button type="button" class="btn"
+                                    style="background-color: red;color: aqua;">Xóa</button> </a></td>
+                    </tr>
+                    <%}%>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+    function ktngaytra() {
+        // console.log("kt ngay tra");
+        var d = new Date();
+        var ngayhientai = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+
+        var ngaybatdau = document.getElementById("ngaybatdau").value;
+        var ngaytra = document.getElementById("ngaytra").value;
+        // alert(ngayhientai)
+
+        var btnsubmit = document.getElementById("btnsubmit");
+        // console.log(document.getElementById("ngaybatdau").value);
+        // console.log(document.getElementById("ngaytra").value);
+        if (ngaybatdau < ngaytra && ngaybatdau > ngayhientai)
+            btnsubmit.disabled = false
+        else
+            btnsubmit.disabled = true
+
+    }
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+           
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ Phiếu mỗi trang",
+                "search": "Tìm Kiếm:",
+                "infoEmpty": "Hiển thị 10 đến 100 dòng",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Tiếp",
+                    "previous": "Trở về"
+                },
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị trang _PAGE_ của _PAGES_",
+            },
+            "rowReorder": true,
+            "columnDefs": [
+                { "orderable": true, "className": 'reorder', "targets": 0 },
+                { "orderable": true, "className": 'reorder', "targets": 1 },
+                { "orderable": true, "className": 'reorder', "targets": 2 },
+                { "orderable": true, "className": 'reorder', "targets": 3 },
+                { "orderable": false, "targets": '_all' }
+            ]
+
+        });
+    });
+</script>

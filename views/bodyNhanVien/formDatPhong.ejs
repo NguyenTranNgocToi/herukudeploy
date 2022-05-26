@@ -1,0 +1,457 @@
+<style>
+</style>
+
+
+<div class="row" style="text-align: center;">
+    <h1><b>ĐẶT PHÒNG</b></h1>
+</div>
+<div style="background: black;height: 2px;width: 100%;margin-bottom: 20px;">
+
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <h3><u>THÔNG TIN KHÁCH HÀNG</u></h3>
+        <form action="/nhanvien/formdatphong" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="usr">Tên(<span id="errorTen">*</span>):</label>
+                <input type="text" class="form-control" id="ten" name="ten" onblur="checkTen()" required>
+            </div>
+            <div class="form-group">
+                <label>Số CMND(<span id="errorScmnd">*</span>):</label>
+                <input type="text" class="form-control" id="scmnd" name="scmnd" onblur="checkScmnd()" required>
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại(<span id="errorSdt">*</span>):</label>
+                <input type="text" class="form-control" id="sdt" name="sdt" onblur="checkSdt()" required>
+            </div>
+            <div class="form-group">
+                <label>Địa Chỉ(<span id="errorDiaChi">*</span>):</label>
+                <input type="text" class="form-control" id="diachi" name="diachi" onblur="checkDiaChi()" required>
+            </div>
+            <div class="form-group">
+                <label>Giới Tính:</label>
+                <select class="form-control" id="sel1" name="gioitinh" required>
+                    <option>Nam</option>
+                    <option>Nu</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Số tiền phải cọc(<span id="errorDiaChi">*</span>):</label>
+                <input type="number" class="form-control" id="coc" name="coc"required readonly value="0">
+            </div>
+            <div class="form-group">
+                <label style="display: none;">Số người(<span id="errorDiaChi">*</span>):</label>
+                <input type="number" class="form-control" id="people" name="people"required readonly value="0" style="display: none;">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="listmaphong" name="listmaphong" required style="display: none;" >
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="ngaydatpost" name="ngaydat" required  required style="display: none;">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="ngaytrapost" name="ngaytra" required  required style="display: none;">
+            </div>
+            <div class="form-group">
+                <button type="submit" id="luuAn" class="btn btn-default" required  style="display: none;">Lưu</button>
+            </div>
+        </form>
+        <!-- required style="display: none; -->
+    </div>
+    <div class="col-sm-9" >
+        <div class="row" style="text-align: center;">
+            <h3><u>CHỌN PHÒNG</u></h3>
+        </div>
+        <div class="row" style="margin-top: 2%;">
+            <div class="col-sm-12">
+                <label class="col-sm-3" for="ngaybatdau">Ngày giờ bắt đầu thuê:</label>
+                <input type="datetime-local" id="ngaybatdau" onchange="getlistPhong()" name="ngaybatdau" required>
+            </div>
+            <div class="col-sm-12" style="margin-top: 1%;margin-bottom: 1%;">
+                <label class="col-sm-3"  for="ngaytra">Ngày giờ trả phòng:</label>
+                <input type="datetime-local" id="ngaytra" onchange="getlistPhong()" name="ngaytra" required>
+            </div>
+
+
+        </div>
+        <div class="row">
+             <div  class="col-sm-5">
+                <h4 style="text-align: center;" >
+                    DANH SÁCH PHÒNG TRỐNG
+                </h4>  
+                <div class="col-sm-12" style="font-size: 15px;border-top: 2px solid black; margin-left:2%;border-left: 2px solid black;border-right: 2px solid black">
+                    <table style="width: 95%;">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Phòng</th>
+                                <th style="text-align: center;width: 28%;">Loại Phòng</th>
+                                <th style="text-align: center;">Số người</th>
+                                <th>Thêm</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-sm-12" id="bang1" style="border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black; overflow-y: scroll; overflow-x: hidden;
+                                            margin-left:2%; height:300px;">
+              
+                <table class="table table-striped" id="table1" style="width: 100%;">
+                   
+                    <tbody id="bodytable1" >
+                        <!-- <tr>
+                            <td>A01</td>
+                            <td>Phòng đơn</td>
+                            <td><button type="button" class="btn">Chọn</button> </td>
+                        </tr> -->
+                        <!-- <%for(let i=0;i< list.length;i++){%>
+                            <tr id="idrow<%=list[i].maPhong%>">
+                        
+                              <td> <%=list[i].maPhong%></td>
+                              <td> <%=list[i].tenLoaiPhong%></td>
+                          
+                              <td>
+                                  <button type="button" class="btn" onclick="themPhong('<%=list[i].maPhong%>',' <%=list[i].tenLoaiPhong%>','idrow<%=list[i].maPhong%>')"  id="button<%=list[i].maPhong%>" >Chon</button>
+                               
+                            </td>
+                            </tr>
+                            <%}%> -->
+
+
+
+
+                    </tbody>
+                </table>
+
+                </div>
+             </div>
+            
+            <div class="col-sm-7">
+                <h4 style="text-align: center;">DANH SÁCH PHÒNG MUỐN ĐẶT</h4>
+                <div class="col-sm-12" style="font-size: 15px;border-top: 2px solid black;border-left: 2px solid black;border-right: 2px solid black">
+                    <table style="width: 95%;font-size: 15px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Phòng</th>
+                                <th style="padding-left: 10px;width: 100px;">Loại Phòng</th>
+                                <th style="width: 90px;">Số người</th>
+                                <th>Ngày đến</th>
+                                <th>Ngày đi</th>
+                                <th style="text-align: right;">Xóa</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-sm-12" style="border-left: 2px solid black;border-right: 2px solid black;border-bottom: 2px solid black; overflow-y: scroll; overflow-x: hidden;
+                 height:300px;">
+                    <table class="table table-striped2" id="table2" style="width: 100%;font-size: 15px;">
+                      
+                        <tbody id="bodytable2">
+                            <!-- <tr>
+                                <td>A01test</td>
+                                <td>loaiPhong</td>
+                                <td>15/3/2022 12:00</td>
+                                <td>15/3/2022 12:00</td>
+                                <td><button type="button" class="btn" onclick="xoa()">Chọn</button> </td>
+                            </tr> -->
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 2%">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4">
+        <button type="button" class="btn btn-success" onclick="luu()" style="width: 40%;margin-left: 10%;font-size: medium;">Đặt Phòng</button> </td>
+        <a href="/nhanvien/cndsDatPhong" type="button" class="btn btn-danger" style="width: 40%;font-size: medium;">Hủy</a> </td>
+    </div>
+
+</div>
+
+<script>
+
+    getTienCocVaSoNguoi()
+    function themPhong(maPhong, tenloaiphong, soNguoi,rowtable) {
+        //  console.log(maPhong);
+        var table = document.getElementById("bodytable2");
+        var countrow = table.rows.length;
+
+        var ngaybatdau = document.getElementById("ngaybatdau").value;
+        var ngaytra = document.getElementById("ngaytra").value;
+        ngaytra = ngaytra.toString()
+        ngaytra = ngaytra.replace("T", " ")
+        //console.log(ngaytra);
+        ngaybatdau = ngaybatdau.toString()
+        ngaybatdau = ngaybatdau.replace("T", " ")
+
+
+        var row = table.insertRow(countrow);
+        row.id = "idRow2" + maPhong;
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        // var cell2 = row.insertCell(1);
+        cell1.innerHTML = maPhong;
+        cell2.innerHTML = tenloaiphong;
+        cell3.innerHTML = soNguoi +" người";
+        cell4.innerHTML = "   "+ngaybatdau;
+        cell5.innerHTML = ngaytra;
+        cell6.innerHTML = " <td><button type=\"button\" class=\"btn\" onclick=\"xoa('" + maPhong + "','" + tenloaiphong + "','" + soNguoi + "')\">Xóa</button> </td>";
+
+        // console.log("i=");    
+        // console.log(rowtable); 
+        // document.getElementById("table1").deleteRow(rowtable);
+        var rowt1 = document.getElementById(rowtable);
+        rowt1.parentNode.removeChild(rowt1);
+
+        getTienCocVaSoNguoi()
+        disable_able_NgayBatDau()
+    }
+    function xoa(maphong, loaiphong,soNguoi) {
+        var table = document.getElementById("bodytable1");
+        var countrow = table.rows.length;
+        //  console.log("table2");
+        //  console.log(countrow);
+        var row = table.insertRow(countrow);
+        row.id = "idrow" + maphong;
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+
+        cell1.innerHTML = maphong;
+        cell2.innerHTML = loaiphong;
+        cell3.innerHTML = soNguoi
+        cell4.innerHTML = "<button type=\"button\" class=\"btn\" onclick=\"themPhong('" + maphong + "','" + loaiphong + "','" + soNguoi + "','idrow" + maphong + "')\"  id=\"button" + maphong + "\" >Chon</button>"
+
+        var idrow2 = "idRow2" + maphong
+        var rowt1 = document.getElementById(idrow2);
+        rowt1.parentNode.removeChild(rowt1);
+        getTienCocVaSoNguoi()
+        disable_able_NgayBatDau()
+    }
+    function luu() {
+        var table = document.getElementById("bodytable2");
+        var listmaphong = []
+        var string = ""
+        var ngaybatdau = ""
+        var ngaytra = ""
+        var rows = table.getElementsByTagName('tr');
+        var check = true;
+        if (!checkTen())
+            check = false
+        if (!checkDiaChi())
+            check = false
+        if (!checkScmnd())
+            check = false
+        if (!checkSdt())
+            check = false
+
+        var tongNguoi = 0;
+        // for (var i = 0; i < rows.length; i++) {
+        //     listmaphong.push(document.getElementById("bodytable2").rows[i].cells[0].innerHTML)
+        //     var loaiphong = document.getElementById("bodytable2").rows[i].cells[1].innerHTML
+        //     if(loaiphong =="Phòng Đơn")
+        //         tongNguoi =tongNguoi+1;
+        //     if(loaiphong =="Phòng Đôi")
+        //     tongNguoi =tongNguoi+1;
+        // }
+        if (rows.length > 0 && check) {
+            for (var i = 0; i < rows.length; i++) {
+                listmaphong.push(document.getElementById("bodytable2").rows[i].cells[0].innerHTML)
+                // alert(document.getElementById("bodytable2").rows[i].cells[0].innerHTML) 
+                if (i < (rows.length - 1)) {
+                    string = string + document.getElementById("bodytable2").rows[i].cells[0].innerHTML + "-"
+                    ngaybatdau = ngaybatdau + document.getElementById("bodytable2").rows[i].cells[3].innerHTML + "|"
+                    ngaytra = ngaytra + document.getElementById("bodytable2").rows[i].cells[4].innerHTML + "|"
+                } else {
+                    string = string + document.getElementById("bodytable2").rows[i].cells[0].innerHTML
+                    ngaybatdau = ngaybatdau + document.getElementById("bodytable2").rows[i].cells[3].innerHTML
+                    ngaytra = ngaytra + document.getElementById("bodytable2").rows[i].cells[4].innerHTML
+                }
+
+            }
+            document.getElementById("listmaphong").value = string
+            document.getElementById("ngaydatpost").value = ngaybatdau
+            document.getElementById("ngaytrapost").value = ngaytra
+            document.getElementById("luuAn").click();
+        } else if (rows.length <= 0) {
+            alert("vui lòng chọn phòng")
+        }
+    }
+    function checkTen() {
+        var ten = document.getElementById('ten').value;
+        var errorTen = document.getElementById('errorTen');
+        // alert(errorTen);
+        // alert(ten);
+        var regexten = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+        if (ten == '' || ten == null) {
+            errorTen.innerHTML = "tên không được để trống";
+            return false
+        } else if (!regexten.test(ten)) {
+            errorTen.innerHTML = "tên không hợp lệ";
+            return false
+        } else {
+            errorTen.innerHTML = "*";
+            return true
+        }
+    }
+    function checkScmnd() {
+        var scmnd = document.getElementById('scmnd').value;
+        var errorscmnd = document.getElementById('errorScmnd');
+
+        var regexScmnd = /^([0-9]{9}||[0-9]{11})$/;
+        if (scmnd == '' || scmnd == null) {
+            errorscmnd.innerHTML = "scmnd không được để trống";
+            return false
+        } else if (!regexScmnd.test(scmnd)) {
+            errorscmnd.innerHTML = "scmnd không hợp lệ";
+            return false
+        } else {
+            errorscmnd.innerHTML = "*";
+            return true
+        }
+    }
+    function checkSdt() {
+        var sdt = document.getElementById('sdt').value;
+        var errorsdt = document.getElementById('errorSdt');
+
+        var regexSdt = /^([0-9]{10}||[0-9]{11})$/;
+        if (sdt == '' || sdt == null) {
+            errorsdt.innerHTML = "sdt không được để trống";
+            return false
+        } else if (!regexSdt.test(sdt)) {
+            errorsdt.innerHTML = "sdt không hợp lệ";
+            return false
+        } else {
+            errorsdt.innerHTML = "*";
+            return true
+        }
+
+    }
+    function checkDiaChi() {
+        var diachi = document.getElementById('diachi').value;
+        var errordiachi = document.getElementById('errorDiaChi');
+
+        var regexdiachi = /^([0-9]{10}||[0-9]{11})$/;
+        if (diachi == '' || diachi == null) {
+            errordiachi.innerHTML = "địa chỉ không được để trống";
+            return false
+        } else {
+            errordiachi.innerHTML = "*";
+            return true
+        }
+
+    }
+    function getlistPhong() {
+        // alert("click")
+        var d = new Date();
+        var ngayhientai = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+
+        var ngaybatdau = document.getElementById("ngaybatdau").value;
+        var ngaytra = document.getElementById("ngaytra").value;
+        // alert(ngayhientai)
+        var temps = document.getElementById('bodytable1');
+        temps.innerHTML = ""
+
+        // console.log(document.getElementById("ngaybatdau").value);
+        // console.log(document.getElementById("ngaytra").value);
+
+        if (ngaybatdau < ngaytra && ngaybatdau >= ngayhientai) {
+            var settings = {
+                url: "/nhanvien/formdatphong?ngaybatdau=" + ngaybatdau + "&ngaytra=" + ngaytra,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    for (var phong of data) {
+                        renderPhong(phong)
+                    }
+                }
+            };
+            $.ajax(settings);
+
+        }
+    }
+    var testPhong = {
+        donGia: 100,
+        loaiphong_maLPH: "1",
+        maLPH: "1",
+        maPhong: "0002",
+        soNguoi: 1,
+        tenLoaiPhong: "Phòng Đơn",
+        trangThai: "Đã Dọn",
+        trinhTrang: "Đang Thuê"
+    };
+    function renderPhong(phong) {
+        // var temp = "<tr id=\"idrow{{maPhong}}\">"+
+        //         "<td>{{maPhong}}</td>"+
+        //         "<td>{{tenLoaiPhong}}</td>"
+        //         +"<td>"
+        //         +"<button type=\"button\" class=\"btn\" onclick=\"themPhong('{{maPhong}}','{{tenLoaiPhong}}','idrow{{maPhong}}')\"  id=\"button{{maPhong}}\" >Chon</button>"+
+        //         "</td>"+
+        //     "</tr>"
+
+        var temp =
+            "<tr id=\"idrow" + phong.maPhong + "\">" +
+            "<td>" + phong.maPhong + "</td>" +
+            "<td>" + phong.tenLoaiPhong + "</td>"+
+            "<td>" + phong.soNguoi + "</td>"
+            + "<td>"
+            + "<button type=\"button\" class=\"btn\" onclick=\"themPhong('" + phong.maPhong + "','" + phong.tenLoaiPhong + "','" + phong.soNguoi + "','idrow" + phong.maPhong + "')\"  id=\"button" + phong.maPhong + "\" >Chon</button>" +
+            "</td>" +
+            "</tr>"
+        var temps = $('#bodytable1');
+
+        var myElem = document.getElementById("idRow2" + phong.maPhong)
+        if (myElem === null) {
+            // alert("không tồn tại")
+            $(temp).appendTo(temps);
+        }
+        if (myElem != null) {
+            console.log("tồn tại");
+        }
+    }
+    function getTienCocVaSoNguoi() {
+        var table = document.getElementById("bodytable2");
+        var rows = table.getElementsByTagName('tr');
+        var string =""
+        var sotiencoc =0;
+        var songuoi=0
+        if (rows.length > 0) {
+            var settings = {
+                url: "/nhanvien/formdatphong?listPhong=1",
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    for (var i = 0; i < rows.length; i++) {
+                        for (var phong of data) {
+                            if(phong.maPhong == document.getElementById("bodytable2").rows[i].cells[0].innerHTML){
+                                    sotiencoc = sotiencoc + phong.donGia*30/100;
+                                    songuoi = songuoi +phong.soNguoi;
+                                    // console.log("tiencocFOR:"+sotiencoc);
+                                    document.getElementById("coc").value = sotiencoc;
+                                    document.getElementById("people").value = songuoi;
+                            }    
+                        }
+                    }
+                    
+                }
+               
+            };
+            $.ajax(settings);
+        }
+    }
+    function disable_able_NgayBatDau() {
+        var table = document.getElementById("bodytable2");
+        var rows = table.getElementsByTagName('tr');
+        if (rows.length > 0) {
+           document.getElementById("ngaybatdau").readOnly = true;
+        }else{
+            document.getElementById("ngaybatdau").readOnly = false;
+        }
+    }
+</script>
